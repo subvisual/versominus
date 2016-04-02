@@ -5,25 +5,31 @@ const MAX_PLAYERS = 4;
 export default class Players {
   constructor (controller) {
     this.players = {};
-    this.connectDevices = [];
+    this.connectedDevices = [];
     this.controller = controller;
     this.messageListeners = [];
 
     this.controller.onMessage(this.onMessage.bind(this));
+    this.controller.onConnect(this.onConnect.bind(this));
   }
 
   update() {
-    const oldPlayerList = { ...this.players };
-    const connectDevices = this.controller.getControllers();
+  }
 
-    connectDevices.forEach(this.addPlayer.bind(this));
-
-    if (_.isEqual(oldPlayerList, this.players))
-      return;
-
+  onConnect(deviceId) {
+    this.setActivePlayers(Object.keys(this.players).length + 1);
+    this.addPlayer(deviceId);
     this.setMasterPlayer();
     this.introducePlayers();
-    // this.setActivePlayers();
+    this.sendSelfState(deviceId);
+  }
+
+  sendSelfState(deviceId) {
+    console.log('here');
+    this.controller.sendMessage(deviceId, {
+      type: 'setPlayer',
+      player: this.players[deviceId]
+    });
   }
 
   onMessage(from, data) {
@@ -39,27 +45,23 @@ export default class Players {
     if (this.players[deviceId])
       return;
 
-    console.log('add new players'); // eslint-disable-line
+    console.log('add new player'); // eslint-disable-line
     const nickName = this.controller.getNickname(deviceId);
-    this.players[deviceId] = { deviceId, nickName };
-    console.log(this.players); // eslint-disable-line
+    const playerNumber =  this.controller.convertDeviceIdToPlayerNumber(deviceId);
+
+    this.players[deviceId] = { deviceId, nickName, playerNumber };
   }
 
   setMasterPlayer() {
     const master = this.controller.getMasterControllerDeviceId();
 
-    if (!master || !this.anyPlayerConnected())
+    if (!master)
       return;
 
     this.players[master].master = true;
   }
 
   introducePlayers() {
-    if (!this.anyPlayerConnected())
-      return;
-
-      console.log('here5');
-
     _.each(this.players, player => {
       const enemies = _.omit(this.players, (enemy) => {
         return enemy.deviceId === player.deviceId;
@@ -76,15 +78,11 @@ export default class Players {
     delete this.players[deviceId];
   }
 
-  setActivePlayers() {
-    if (!this.anyPlayerConnected)
+  setActivePlayers(length) {
+    if (length > MAX_PLAYERS)
       return;
 
-    const activePlayers = this.controller.setActivePlayers(MAX_PLAYERS);
-    console.log('setActivePlayers', activePlayers); // eslint-disable-line
-  }
-
-  anyPlayerConnected() {
-    return Object.keys(this.players).length;
+    console.log('setActivePlayers', length);
+    this.controller.setActivePlayers(length);
   }
 }

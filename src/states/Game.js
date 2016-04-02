@@ -4,7 +4,7 @@ import BoardWrapper from '../objects/BoardWrapper';
 
 export default class Game extends Phaser.State {
   create () {
-    this.controller = new Controller(this.game);
+    this.controller = new Controller();
     this.players = new Players(this.controller);
 
     this.boards = [

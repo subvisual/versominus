@@ -6,7 +6,7 @@
   </head>
   <body class="FullScreen">
 
-    <div class="Controller Background--blue">
+    <div class="Controller" id="js-Player">
       <div class="Controller-row Controller-mainRow ">
         <div class="Controller-button" onclick="VERSOMINUS.sendMessageToScreen(VERSOMINUS.actions.left)">
           <img class="Controller-imageLeft" src="/assets/left.png"/>
@@ -20,8 +20,8 @@
         </div>
       </div>
 
-      <div class="Controller-row Controller--rowWithGutters">
-        <div class="Controller-button Background--red">
+      <div class="Controller-row Controller--rowWithGutters" id="js-Enemies">
+        <!-- <div class="Controller-button Background--red">
           Player 1
         </div>
         <div class="Controller-button Background--green">
@@ -29,7 +29,7 @@
         </div>
         <div class="Controller-button Background--yellow">
           Player 3
-        </div>
+        </div> -->
       </div>
     </div>
 

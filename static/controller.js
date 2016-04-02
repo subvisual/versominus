@@ -1,9 +1,19 @@
 /*global AirConsole VERSOMINUS*/
 
+VERSOMINUS = {};
+
+var PLAYER_COLORS = {
+  0: ' Background--blue',
+  1: ' Background--green',
+  2: ' Background--yellow',
+  3: ' Background--red'
+};
+
 var context = this;
 var playerNameSelector = 'js-PlayerName';
+var playerContainerSelector = 'js-Player';
+var enemiesContaienrSelector = 'js-Enemies';
 
-VERSOMINUS = {};
 
 init();
 
@@ -15,6 +25,9 @@ function init() {
 
   VERSOMINUS.sendMessage = sendMessage(airConsole);
   VERSOMINUS.sendMessageToScreen = sendMessageToScreen(airConsole);
+
+  VERSOMINUS.playerContainer = document.getElementById(playerContainerSelector);
+  VERSOMINUS.enemiesContainer = document.getElementById(enemiesContaienrSelector);
   VERSOMINUS.playerNameContainer = document.getElementById(playerNameSelector);
 
   VERSOMINUS.actions = {
@@ -46,7 +59,6 @@ function onMessage(from, data) {
     return;
 
   context[data.type](data);
-  console.log(from, data); // eslint-disable-line
 }
 
 
@@ -64,5 +76,15 @@ function sendMessageToScreen(airConsole) {
 }
 
 function playersList(data) {
-  console.log('playersList', data);
+  // console.log('playersList', data);
+}
+
+function setPlayer(data) {
+  var color = PLAYER_COLORS[data.player.playerNumber];
+
+  console.log(data, color);
+  if (!color)
+    return;
+
+  VERSOMINUS.playerContainer.className += color;
 }

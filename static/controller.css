@@ -14,6 +14,8 @@
 .Controller-row {
   flex: 1;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .Controller-row.Controller-mainRow {

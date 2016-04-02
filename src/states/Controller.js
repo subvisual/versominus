@@ -2,9 +2,12 @@
 import AirConsole from './Air_Console';
 
 export default class Controller {
-  constructor (game) {
-    this.game = game;
+  constructor () {
     this.airConsole = new AirConsole();
+  }
+
+  onConnect(callback) {
+    return this.airConsole.onConnect = callback;
   }
 
   setActivePlayers(maxPlayers) {
@@ -37,5 +40,9 @@ export default class Controller {
 
   convertPlayerNumberToDeviceId(player) {
     return this.airConsole.convertPlayerNumberToDeviceId(player);
+  }
+
+  convertDeviceIdToPlayerNumber(deviceId) {
+    return this.airConsole.convertDeviceIdToPlayerNumber(deviceId);
   }
 }
