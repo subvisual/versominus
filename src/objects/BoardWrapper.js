@@ -7,10 +7,10 @@ const InnerHeight = 400;
 const InnerOffsetLeft = 25;
 const InnerOffsetTop = 80;
 const Colors = [
-  '#c00',
-  '#0c0',
-  '#00c',
-  '#ccc'
+  '#69bfde',
+  '#47ecc2',
+  '#fb7e7e',
+  '#fed15c'
 ];
 
 export default class BoardWrapper extends Phaser.Group {
@@ -34,7 +34,15 @@ export default class BoardWrapper extends Phaser.Group {
   }
 
   setBoard() {
-    var board = new Board(this.game, this.index * Width + InnerOffsetLeft, InnerOffsetTop, InnerWidth, InnerHeight);
+    var board = new Board(
+      this.game,
+      this.index,
+      this.index * Width + InnerOffsetLeft,
+      InnerOffsetTop,
+      InnerWidth,
+      InnerHeight
+    );
+
     this.add(board);
     this.game.add.existing(board);
   }
