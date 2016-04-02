@@ -10,11 +10,27 @@ export default class Controller {
     this.airConsole.onMessage = this.onMessage.bind(this);
   }
 
+  getControllers() {
+    return this.airConsole.getControllerDeviceIds()
+  }
+
+  getNickname(controllerId) {
+    return this.airConsole.getNickname(controllerId);
+  }
+
   onMessage(from, data) {
     console.log(data);
   }
 
   sendMessage(to, data) {
     this.airConsole.message(to, data);
+  }
+
+  getMasterController() {
+    return this.airConsole.getMasterControllerDeviceId();
+  }
+
+  convertPlayerNumberToDeviceId(player) {
+    return this.airConsole.convertPlayerNumberToDeviceId(player);
   }
 }

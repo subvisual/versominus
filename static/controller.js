@@ -1,11 +1,12 @@
 /*global AirConsole VERSOMINUS*/
 
+var playerNameSelector = 'js-PlayerName';
+
 VERSOMINUS = {};
 
 init();
 
 function init() {
-  console.log('init'); // eslint-disable-line
   var airConsole = new AirConsole();
 
   airConsole.onReady = ready(airConsole);
@@ -13,6 +14,8 @@ function init() {
 
   VERSOMINUS.sendMessage = sendMessage(airConsole);
   VERSOMINUS.sendMessageToScreen = sendMessageToScreen(airConsole);
+  VERSOMINUS.playerNameContainer = document.getElementById(playerNameSelector);
+
   VERSOMINUS.actions = {
     left: 'LEFT',
     right: 'RIGHT',
@@ -25,6 +28,7 @@ function ready(airConsole) {
     handshake();
     sendMessage(AirConsole.SCREEN, 'How are you?');
     airConsole.setOrientation(AirConsole.ORIENTATION_LANDSCAPE);
+    VERSOMINUS.playerNameContainer.innerHTML = airConsole.getNickname();
   };
 }
 
