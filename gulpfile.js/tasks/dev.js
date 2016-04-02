@@ -22,7 +22,7 @@ module.exports = function (gulp, $, config) {
   var watcher;
 
   // Bundle the application source code using Browserify.
-  gulp.task('dev:scripts', [ 'dev:lint' ], function () {
+  gulp.task('dev:scripts', function () {
     if (!watcher) {
       watcher = bundler.watch(config.bundle);
     }
