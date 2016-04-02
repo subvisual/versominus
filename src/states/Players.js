@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const MAX_PLAYERS = 4;
 
 export default class Players {
@@ -11,11 +13,17 @@ export default class Players {
   }
 
   update() {
+    const oldPlayerList = { ...this.players };
     const connectDevices = this.controller.getControllers();
 
     connectDevices.forEach(this.addPlayer.bind(this));
 
+    if (_.isEqual(oldPlayerList, this.players))
+      return;
+
     this.setMasterPlayer();
+    this.introducePlayers();
+    // this.setActivePlayers();
   }
 
   onMessage(from, data) {
@@ -31,7 +39,7 @@ export default class Players {
     if (this.players[deviceId])
       return;
 
-    console.log('add new playerss');
+    console.log('add new players'); // eslint-disable-line
     const nickName = this.controller.getNickname(deviceId);
     this.players[deviceId] = { deviceId, nickName };
     console.log(this.players); // eslint-disable-line
@@ -40,10 +48,28 @@ export default class Players {
   setMasterPlayer() {
     const master = this.controller.getMasterControllerDeviceId();
 
-    if (!master || !Object.keys(this.players).length)
+    if (!master || !this.anyPlayerConnected())
       return;
 
     this.players[master].master = true;
+  }
+
+  introducePlayers() {
+    if (!this.anyPlayerConnected())
+      return;
+
+      console.log('here5');
+
+    _.each(this.players, player => {
+      const enemies = _.omit(this.players, (enemy) => {
+        return enemy.deviceId === player.deviceId;
+      });
+
+      this.controller.sendMessage(player.deviceId, {
+        type: 'playersList',
+        enemies
+      });
+    });
   }
 
   removePlayer(deviceId) {
@@ -51,6 +77,14 @@ export default class Players {
   }
 
   setActivePlayers() {
-    return this.controller.setActivePlayers(MAX_PLAYERS);
+    if (!this.anyPlayerConnected)
+      return;
+
+    const activePlayers = this.controller.setActivePlayers(MAX_PLAYERS);
+    console.log('setActivePlayers', activePlayers); // eslint-disable-line
+  }
+
+  anyPlayerConnected() {
+    return Object.keys(this.players).length;
   }
 }

@@ -1,5 +1,6 @@
 /*global AirConsole VERSOMINUS*/
 
+var context = this;
 var playerNameSelector = 'js-PlayerName';
 
 VERSOMINUS = {};
@@ -10,7 +11,7 @@ function init() {
   var airConsole = new AirConsole();
 
   airConsole.onReady = ready(airConsole);
-  airConsole.onMessage = onMessage(airConsole);
+  airConsole.onMessage = onMessage;
 
   VERSOMINUS.sendMessage = sendMessage(airConsole);
   VERSOMINUS.sendMessageToScreen = sendMessageToScreen(airConsole);
@@ -41,8 +42,13 @@ function handshake(airConsole) {
 }
 
 function onMessage(from, data) {
+  if (!data || !data.type || !context[data.type])
+    return;
+
+  context[data.type](data);
   console.log(from, data); // eslint-disable-line
 }
+
 
 function sendMessage(airConsole) {
   return function(to, message) {
@@ -55,4 +61,8 @@ function sendMessageToScreen(airConsole) {
   return function(message) {
     return airConsole.message(to, message);
   };
+}
+
+function playersList(data) {
+  console.log('playersList', data);
 }
