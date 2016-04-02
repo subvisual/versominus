@@ -19,17 +19,17 @@ export default class Players {
     if (this.players[deviceId])
       return;
 
-    console.log('add new player');
+    console.log('add new playerss');
     const nickName = this.controller.getNickname(deviceId);
     this.players[deviceId] = { deviceId, nickName };
     console.log(this.players); // eslint-disable-line
   }
 
   setMasterPlayer() {
-    if (!this.players.length)
-      return;
-
     const master = this.controller.getMasterControllerDeviceId();
+
+    if (!master || !Object.keys(this.players).length)
+      return;
 
     this.players[master].master = true;
   }
