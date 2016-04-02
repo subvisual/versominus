@@ -12,7 +12,6 @@ export default class Controller {
 
   onMessage(from, data) {
     console.log(data);
-    this.airConsole.message(from, 'Full of pixels!');
   }
 
   sendMessage(to, data) {

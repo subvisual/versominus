@@ -1,45 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html class="FullScreen">
   <head>
+    <link rel="stylesheet" href="controller.css">
     <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.4.0.js"></script>
   </head>
-  <body>
-    <h1>Hello Controller</h1>
-    <script type="text/javascript">
-    var air_console = new AirConsole();
+  <body class="FullScreen">
 
-    var handshake = function() {
-      console.log('handshake');
-      air_console.message(AirConsole.SCREEN, {
-        handshake: true
-      });
-    };
+    <div class="Controller">
+      <div class="Controller-row">
+        <div class="Controller-button" onclick="VERSOMINUS.sendMessageToScreen(VERSOMINUS.actions.left)">
+          Left
+        </div>
+        <div class="Controller-button" onclick="VERSOMINUS.sendMessageToScreen(VERSOMINUS.actions.rotate)">
+          Rotate
+        </div>
+        <div class="Controller-button" onclick="VERSOMINUS.sendMessageToScreen(VERSOMINUS.actions.right)">
+          Right
+        </div>
+      </div>
 
-    air_console.onReady = function() {
-      console.log('ready');
-      handshake();
-      air_console.message(AirConsole.SCREEN, "How are you?");
-    };
+      <div class="Controller-row">
+        <div class="Controller-button">
+          Player 1
+        </div>
+        <div class="Controller-button">
+          Player 2
+        </div>
+        <div class="Controller-button">
+          Player 3
+        </div>
+      </div>
+    </div>
 
-    air_console.onMessage(function(device_id, data) {
-      if (data.handshake) {
-        handshake();
-      }
-    });
-
-    console.log('here');
-    // Send a message to the screen
-    air_console.message(AirConsole.SCREEN, "How are you?");
-
-    // Listen for messages
-    air_console.onMessage = function(from, data) {
-      air_console.message(from, "Full of pixels!");
-
-      // Show message on device screen
-      var info = document.createElement('DIV');
-      info.innerHTML = data;
-      document.body.appendChild(info);
-    };
-    </script>
-</body>
+    <script src="controller.js"></script>
+  </body>
 </html>
