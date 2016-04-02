@@ -23,9 +23,6 @@ export default class BoardWrapper extends Phaser.Group {
     this.setBoard();
   }
 
-  update() {
-  }
-
   setBackground() {
     var bg = new Phaser.TileSprite(
       this.game,
