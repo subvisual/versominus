@@ -1,5 +1,6 @@
+import _ from 'lodash';
 import Block from './Block';
-const TimeBetweenTicks = 50;
+const TimeBetweenTicks = 500;
 
 export default class extends Phaser.Group {
   constructor(game, x, y) {
@@ -53,9 +54,10 @@ export default class extends Phaser.Group {
   }
 
   checkCollisionBelow(stoppedBlocks) {
+    console.log(2)
     return _.some(this.blocks, block => (
       _.some(stoppedBlocks, (stopped) => (
-        this.y + block.y + block.height == stopped.y
+        this.x + block.x == stopped.x && this.y + block.y + block.height == stopped.y
       ))
     ));
   }

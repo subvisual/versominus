@@ -58,12 +58,27 @@ export default class Board extends Phaser.Group {
     return _.some(this.stoppedPieces, (otherPiece => piece.x == otherPiece.x && piece.y + piece.blockSize == otherPiece.y));
   }
 
-  hasPieceAtSide(piece, direction) {
-    return _.some(this.stoppedPieces, (otherPiece => piece.y == otherPiece.y && piece.x + piece.blockSize * direction == otherPiece.x));
+  isSideFree(block, direction) {
+    if (block.x === 0 || block.x + block.width === this.width) {
+      return false;
+    }
+
+    let stoppedBlocks = this.stoppedBlocks();
+    return _.every(stoppedBlocks, (stoppedBlock) =>
+      block.y != stoppedBlock.y || block.x + block.width * direction != stoppedBlock.x
+    );
   }
 
   stoppedBlocks() {
     return _.flatten(this.stoppedPieces.map((piece) =>
+      piece.blocks.map(block =>
+        ({ x: block.x + piece.x, y: block.y + piece.y })
+      )
+    ));
+  }
+
+  movingBlocks() {
+    return _.flatten(this.movingPieces.map((piece) =>
       piece.blocks.map(block =>
         ({ x: block.x + piece.x, y: block.y + piece.y })
       )

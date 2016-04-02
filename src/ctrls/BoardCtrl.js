@@ -1,6 +1,7 @@
 export default class BoardCtrl {
   constructor(board) {
     this.board = board;
+    console.log('asd')
   }
 
   sendAction(data) {
@@ -13,22 +14,25 @@ export default class BoardCtrl {
 
   moveLeft() {
     if (this.canMove(-1)) {
-      move(-1);
+      this.move(-1);
     }
   }
 
   moveRight() {
     if (this.canMove(1)) {
-      move(1);
+      this.move(1);
     }
   }
 
   canMove(offset) {
-    return this.game.hasPieceAtSide(offset);
+    return _.every(this.board.movingBlocks, (block) =>
+      !this.board.isSideFree(block, offset)
+    );
   }
 
   move(offset) {
-    this.board.pieces.forEach(piece => {
+    console.log(4)
+    this.board.movingPieces.forEach(piece => {
       piece.x += piece.blockSize * offset;
     })
   }
