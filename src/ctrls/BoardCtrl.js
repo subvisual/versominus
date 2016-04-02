@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export default class BoardCtrl {
   constructor(board) {
     this.board = board;
@@ -5,9 +7,9 @@ export default class BoardCtrl {
 
   sendAction(data) {
     switch (data) {
-      case "LEFT": this.moveLeft(); break;
-      case "RIGHT": this.moveRight(); break;
-      case "ROTATE": this.tryToRotate(); break;
+      case 'LEFT': this.moveLeft(); break;
+      case 'RIGHT': this.moveRight(); break;
+      case 'ROTATE': this.tryToRotate(); break;
     }
   }
 
@@ -36,7 +38,7 @@ export default class BoardCtrl {
   move(offset) {
     this.board.movingPieces.forEach(piece => {
       piece.x += piece.blockSize * offset;
-    })
+    });
   }
 
   rotateWithOffset(offset) {

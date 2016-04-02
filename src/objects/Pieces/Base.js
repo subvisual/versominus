@@ -40,7 +40,7 @@ export default class extends Phaser.Group {
       this.add(block);
       this.blocks = this.blocks || [];
       this.blocks.push(block);
-    })
+    });
   }
 
   get blockSize() {

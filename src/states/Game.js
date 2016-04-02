@@ -7,28 +7,26 @@ export default class Game extends Phaser.State {
     this.controller = new Controller();
     this.players = new Players(this.controller);
 
-    this.boards = [
-      new BoardWrapper(this.game, 0),
-      // new BoardWrapper(this.game, 1),
-      // new BoardWrapper(this.game, 2),
-      // new BoardWrapper(this.game, 3)
-    ];
-
-    this.game.add.existing(this.boards[0]);
-    // this.game.add.existing(this.boards[1]);
-    // this.game.add.existing(this.boards[2]);
-    // this.game.add.existing(this.boards[3]);
-
-    this.players.onPlayerAction(action => {
-      let board = this.boards[action.player.playerNumber];
-      if (board) {
-        board.ctrl.sendAction(action.data);
-      }
-    })
+    this.boards = {};
+    this.players.onPlayerConnect(this.addBoardForPlayer.bind(this));
+    this.players.onPlayerAction(this.routeActionForBoard.bind(this));
   }
 
   update () {
-    this.players.update();
     super.update();
+  }
+
+  addBoardForPlayer(player) {
+    const board = new BoardWrapper(this.game, player.playerNumber);
+    this.boards[player.playerNumber] = board;
+    this.game.add.existing(board);
+  }
+
+  routeActionForBoard(action) {
+    const board = this.boards[action.player.playerNumber];
+    if (!board)
+      return;
+
+    board.ctrl.sendAction(action.data);
   }
 }

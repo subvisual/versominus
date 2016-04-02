@@ -8,12 +8,10 @@ export default class Players {
     this.connectedDevices = [];
     this.controller = controller;
     this.messageListeners = [];
+    this.connectListeners = [];
 
     this.controller.onMessage(this.onMessage.bind(this));
     this.controller.onConnect(this.onConnect.bind(this));
-  }
-
-  update() {
   }
 
   onConnect(deviceId) {
@@ -22,6 +20,7 @@ export default class Players {
     this.setMasterPlayer();
     this.introducePlayers();
     this.sendSelfState(deviceId);
+    this.connectListeners.forEach(listener => listener(this.players[deviceId]));
   }
 
   sendSelfState(deviceId) {
@@ -37,7 +36,6 @@ export default class Players {
     if (!player)
       return;
 
-    console.log('message', player); // eslint-disable-line
     this.messageListeners.forEach(listener => listener({player, data}));
   }
 
@@ -45,7 +43,6 @@ export default class Players {
     if (this.players[deviceId])
       return;
 
-    console.log('add new player'); // eslint-disable-line
     const nickName = this.controller.getNickname(deviceId);
     const playerNumber =  this.controller.convertDeviceIdToPlayerNumber(deviceId);
 
@@ -82,12 +79,14 @@ export default class Players {
     if (length > MAX_PLAYERS)
       return;
 
-    console.log('setActivePlayers', length); // eslint-disable-line
     this.controller.setActivePlayers(length);
   }
 
   onPlayerAction(callback) {
-    console.log('here', callback); // eslint-disable-line
     return this.messageListeners.push(callback);
+  }
+
+  onPlayerConnect(callback) {
+    return this.connectListeners.push(callback);
   }
 }
