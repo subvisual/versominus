@@ -59,20 +59,29 @@ export default class Board extends Phaser.Group {
   }
 
   isSideFree(block, direction) {
-    if (block.x === 0 || block.x + block.width === this.width) {
+    console.log(9)
+    if (direction < 0 && block.x === 0) {
+      return false;
+    }
+
+    if (direction > 0 && block.x + block.size === this.width) {
       return false;
     }
 
     let stoppedBlocks = this.stoppedBlocks();
+    if (stoppedBlocks.length === 0) {
+      return true;
+    }
+
     return _.every(stoppedBlocks, (stoppedBlock) =>
-      block.y != stoppedBlock.y || block.x + block.width * direction != stoppedBlock.x
+      block.y != stoppedBlock.y || block.x + block.size * direction != stoppedBlock.x
     );
   }
 
   stoppedBlocks() {
     return _.flatten(this.stoppedPieces.map((piece) =>
       piece.blocks.map(block =>
-        ({ x: block.x + piece.x, y: block.y + piece.y })
+        ({ x: block.x + piece.x, y: block.y + piece.y, size: piece.blockSize })
       )
     ));
   }
@@ -80,7 +89,7 @@ export default class Board extends Phaser.Group {
   movingBlocks() {
     return _.flatten(this.movingPieces.map((piece) =>
       piece.blocks.map(block =>
-        ({ x: block.x + piece.x, y: block.y + piece.y })
+        ({ x: block.x + piece.x, y: block.y + piece.y, size: piece.blockSize })
       )
     ));
   }

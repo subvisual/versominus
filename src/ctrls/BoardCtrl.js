@@ -25,8 +25,8 @@ export default class BoardCtrl {
   }
 
   canMove(offset) {
-    return _.every(this.board.movingBlocks, (block) =>
-      !this.board.isSideFree(block, offset)
+    return _.every(this.board.movingBlocks(), (block) =>
+      this.board.isSideFree(block, offset)
     );
   }
 
