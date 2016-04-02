@@ -5,6 +5,9 @@ export default class Players {
     this.players = {};
     this.connectDevices = [];
     this.controller = controller;
+    this.messageListeners = [];
+
+    this.controller.onMessage(this.onMessage.bind(this));
   }
 
   update() {
@@ -13,6 +16,15 @@ export default class Players {
     connectDevices.forEach(this.addPlayer.bind(this));
 
     this.setMasterPlayer();
+  }
+
+  onMessage(from, data) {
+    const player = this.players[from];
+
+    if (!player)
+      return;
+
+    this.messageListeners.forEach(listener => listener({player, data}));
   }
 
   addPlayer(deviceId) {

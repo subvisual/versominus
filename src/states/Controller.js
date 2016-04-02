@@ -5,9 +5,6 @@ export default class Controller {
   constructor (game) {
     this.game = game;
     this.airConsole = new AirConsole();
-    this.airConsole.message(AirConsole.CONTROLLER, 'How are you?');
-
-    this.airConsole.onMessage = this.onMessage.bind(this);
   }
 
   setActivePlayers(maxPlayers) {
@@ -26,8 +23,8 @@ export default class Controller {
     return this.airConsole.getMasterControllerDeviceId();
   }
 
-  onMessage(from, data) {
-    console.log(data);
+  onMessage(callback) {
+    this.airConsole.onMessage = callback;
   }
 
   sendMessage(to, data) {
