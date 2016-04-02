@@ -23,6 +23,10 @@ export default class BoardWrapper extends Phaser.Group {
     this.setBoard();
   }
 
+  get ctrl() {
+    return this.board.ctrl;
+  }
+
   setBackground() {
     var bg = new Phaser.TileSprite(
       this.game,
@@ -37,13 +41,13 @@ export default class BoardWrapper extends Phaser.Group {
   }
 
   setBoard() {
-    var board = new Board(
+    this.board = new Board(
       this.game,
       this.index,
       this.index * Width + InnerOffsetLeft,
       InnerOffsetTop,
     );
 
-    this.add(board);
+    this.add(this.board);
   }
 }

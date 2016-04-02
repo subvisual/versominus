@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import Piece from './Piece';
+import BoardCtrl from '../ctrls/BoardCtrl';
 
 const Width = 200;
 const Height = 400;
@@ -22,13 +23,15 @@ export default class Board extends Phaser.Group {
     this.x = x;
     this.y = y;
 
+    this.ctrl = new BoardCtrl(this);
+
     this.setBackground();
     this.addPiece();
   }
 
   update() {
     this.instantiateNewPiece();
-    this.checkPiecesState();
+    this.updatePiecesState();
     super.update();
   }
 
@@ -38,9 +41,10 @@ export default class Board extends Phaser.Group {
     }
   }
 
-  checkPiecesState() {
+  updatePiecesState() {
+    let stopped = this.stoppedBlocks();
     this.movingPieces.forEach(piece => {
-      if (this.isPieceAtBottom(piece) || this.hasPieceBelow(piece)) {
+      if (this.isPieceAtBottom(piece) || piece.checkCollisionBelow(stopped)) {
         piece.stop();
       }
     });
@@ -51,7 +55,19 @@ export default class Board extends Phaser.Group {
   }
 
   hasPieceBelow(piece) {
-    return _.some(this.stoppedPieces, (otherPiece => piece.x == otherPiece.x && piece.y + piece.height == otherPiece.y));
+    return _.some(this.stoppedPieces, (otherPiece => piece.x == otherPiece.x && piece.y + piece.blockSize == otherPiece.y));
+  }
+
+  hasPieceAtSide(piece, direction) {
+    return _.some(this.stoppedPieces, (otherPiece => piece.y == otherPiece.y && piece.x + piece.blockSize * direction == otherPiece.x));
+  }
+
+  stoppedBlocks() {
+    return _.flatten(this.stoppedPieces.map((piece) =>
+      piece.blocks.map(block =>
+        ({ x: block.x + piece.x, y: block.y + piece.y })
+      )
+    ));
   }
 
   get movingPieces() {
@@ -74,11 +90,7 @@ export default class Board extends Phaser.Group {
   }
 
   addPiece() {
-    var piece = new Piece(
-      this.game,
-      this.x,
-      this.y,
-    );
+    var piece = Piece.createRandom(this.game, 0, 0);
 
     this.pieces = this.pieces || [];
     this.add(piece);
