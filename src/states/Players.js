@@ -25,7 +25,6 @@ export default class Players {
   }
 
   sendSelfState(deviceId) {
-    console.log('here');
     this.controller.sendMessage(deviceId, {
       type: 'setPlayer',
       player: this.players[deviceId]
@@ -38,7 +37,7 @@ export default class Players {
     if (!player)
       return;
 
-    console.log('message', player);
+    console.log('message', player); // eslint-disable-line
     this.messageListeners.forEach(listener => listener({player, data}));
   }
 
@@ -83,12 +82,12 @@ export default class Players {
     if (length > MAX_PLAYERS)
       return;
 
-    console.log('setActivePlayers', length);
+    console.log('setActivePlayers', length); // eslint-disable-line
     this.controller.setActivePlayers(length);
   }
 
   onPlayerAction(callback) {
-    console.log('here', callback);
+    console.log('here', callback); // eslint-disable-line
     return this.messageListeners.push(callback);
   }
 }
