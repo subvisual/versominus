@@ -38,6 +38,7 @@ export default class Players {
     if (!player)
       return;
 
+    console.log('message', player);
     this.messageListeners.forEach(listener => listener({player, data}));
   }
 
@@ -84,5 +85,10 @@ export default class Players {
 
     console.log('setActivePlayers', length);
     this.controller.setActivePlayers(length);
+  }
+
+  onPlayerAction(callback) {
+    console.log('here', callback);
+    return this.messageListeners.push(callback);
   }
 }

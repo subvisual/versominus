@@ -7,6 +7,10 @@ export default class Game extends Phaser.State {
     this.controller = new Controller();
     this.players = new Players(this.controller);
 
+    this.players.onPlayerAction(action => {
+      console.log(action);
+    })
+
     this.boards = [
       new BoardWrapper(this.game, 0),
       new BoardWrapper(this.game, 1),
