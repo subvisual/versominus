@@ -18,6 +18,10 @@ export default class Controller {
     return this.airConsole.getNickname(controllerId);
   }
 
+  getMasterControllerDeviceId() {
+    return this.airConsole.getMasterControllerDeviceId();
+  }
+
   onMessage(from, data) {
     console.log(data);
   }

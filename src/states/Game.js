@@ -24,14 +24,16 @@ export default class Game extends Phaser.State {
     const controllers = this.controller.getControllers();
 
     if (controllers.length !== this.controllers.length) {
-      console.log('new active player'); // eslint-disable-line
+      console.log('new active players'); // eslint-disable-line
       this.controllers = controllers;
 
       controllers.forEach((controller) => {
         this.players.push(this.controller.getNickname(controller));
+        this.masterController = this.controller.getMasterControllerDeviceId();
       });
 
       console.log(this.players); // eslint-disable-line
+      console.log(this.masterController); // eslint-disable-line
     }
   }
 }
