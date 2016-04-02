@@ -1,7 +1,9 @@
-const Width = 230;
+import Piece from './Piece';
+
+const Width = 200;
 const Height = 480;
-const InnerWidth = 200;
-const InnerOffset = 15;
+const OffsetLeft = 25;
+const OffsetTop = 80;
 
 const Colors = [
   Phaser.Color.RGBtoString(96, 184, 213, 0.2, '#'),
@@ -11,18 +13,16 @@ const Colors = [
 ];
 
 export default class Board extends Phaser.Group {
-  constructor (game, index, x, y, width, height) {
+  constructor (game, index, x, y) {
     super(game, null, 'Board');
 
     this.game = game;
     this.index = index;
     this.x = x;
     this.y = y;
-    this.w = width;
-    this.h = height;
 
     this.setBackground();
-    console.log('dsar345')
+    this.addPiece();
   }
 
   update() {
@@ -30,6 +30,23 @@ export default class Board extends Phaser.Group {
   }
 
   setBackground() {
-    this.rect = new Phaser.Rectangle(this.x, this.y, this.w, this.h);
+    var bg = new Phaser.TileSprite(
+      this.game,
+      0, 0,
+      Width, Height,
+      `inner-board${this.index}`
+    );
+
+    this.add(bg);
+  }
+
+  addPiece() {
+    var piece = new Piece(
+      this.game,
+      this.x,
+      this.y,
+    );
+
+    this.add(piece);
   }
 }

@@ -25,6 +25,43 @@ export default {
   game: [{
     key: 'phaser',
     type: 'image'
+  },
+  {
+    key: 'zamith',
+    type: 'image'
+  },
+  {
+    key: 'board0',
+    type: 'image'
+  },
+  {
+    key: 'board1',
+    type: 'image'
+  },
+  {
+    key: 'board2',
+    type: 'image'
+  },
+  {
+    key: 'board3',
+    type: 'image'
+  },
+  {
+    key: 'inner-board0',
+    type: 'image'
+  },
+  {
+    key: 'inner-board1',
+    type: 'image'
+  },
+  {
+    key: 'inner-board2',
+    type: 'image'
+  },
+  {
+    key: 'inner-board3',
+    type: 'image'
+  }
   // }, {
   //   // Example: Add background music.
   //   key: 'tune',
@@ -36,5 +73,4 @@ export default {
   //   type: 'audiosprite',
   //   urls: [ 'sfx.m4a' ],
   //   jsonURL: 'sfx.json'
-  }]
-};
+  ]};
