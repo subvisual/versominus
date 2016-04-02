@@ -10,6 +10,10 @@ export default class Controller {
     this.airConsole.onMessage = this.onMessage.bind(this);
   }
 
+  setActivePlayers(maxPlayers) {
+    return this.airConsole.setActivePlayers(maxPlayers);
+  }
+
   getControllers() {
     return this.airConsole.getControllerDeviceIds()
   }
