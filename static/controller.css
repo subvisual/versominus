@@ -31,8 +31,14 @@
   align-items: center;
   justify-content: center;
 
+  max-width: 215px;
+
   color: white;
   text-transform: uppercase;
+}
+
+.Controller-enemy {
+  align-self: stretch;
 }
 
 .Controller-imageLeft,
@@ -70,7 +76,7 @@
 
 .PlayerName {
   position: absolute;
-  top: 50px;
+  top: -30px;
   width: 100%;
   text-align: center;
 }

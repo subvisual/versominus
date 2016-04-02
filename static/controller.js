@@ -76,15 +76,34 @@ function sendMessageToScreen(airConsole) {
 }
 
 function playersList(data) {
-  // console.log('playersList', data);
+  if (!Object.keys(data.enemies).length)
+    return;
+
+  Object.keys(data.enemies).forEach(addEnemy(data.enemies));
 }
 
 function setPlayer(data) {
   var color = PLAYER_COLORS[data.player.playerNumber];
 
-  console.log(data, color);
   if (!color)
     return;
 
   VERSOMINUS.playerContainer.className += color;
+}
+
+function addEnemy(enemies) {
+  return function(enemyKey) {
+    var enemy = enemies[enemyKey];
+    var color = PLAYER_COLORS[enemy.playerNumber];
+
+    if (!color)
+      return;
+
+    var enemyElement = document.createElement('DIV');
+    enemyElement.className = 'Controller-button Controller-enemy' + color;
+    enemyElement.innerHTML = enemy.nickName;
+    enemyElement.id = 'js-Enemy-' + enemy.playerNumber;
+
+    VERSOMINUS.enemiesContainer.appendChild(enemyElement);
+  };
 }
