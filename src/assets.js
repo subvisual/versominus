@@ -31,6 +31,26 @@ export default {
     type: 'image'
   },
   {
+    key: 'blue_block',
+    type: 'image'
+  },
+  {
+    key: 'cyan_block',
+    type: 'image'
+  },
+  {
+    key: 'purple_block',
+    type: 'image'
+  },
+  {
+    key: 'white_block',
+    type: 'image'
+  },
+  {
+    key: 'yellow_block',
+    type: 'image'
+  },
+  {
     key: 'board0',
     type: 'image'
   },

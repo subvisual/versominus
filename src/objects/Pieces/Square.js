@@ -1,6 +1,10 @@
 import Base from './Base'
 
 export default class Square extends Base {
+  get color() {
+    return 'blue';
+  }
+
   get startPositions() {
     return [
       { x: 0, y: 0 },

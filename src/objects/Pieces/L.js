@@ -1,6 +1,10 @@
 import Base from './Base'
 
 export default class L extends Base {
+  get color() {
+    return 'red';
+  }
+
   get startPositions() {
     return [
       { x: 0, y: 0 },

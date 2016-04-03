@@ -15,7 +15,7 @@ export default class extends Phaser.Group {
 
   addBlocks() {
     this.startPositions.forEach(position => {
-      var block = new Block(this.game, this.x, this.y, position.x, position.y);
+      const block = new Block(this.game, this.x, this.y, position.x, position.y, this.color);
 
       this.add(block);
       this.blocks = this.blocks || [];
