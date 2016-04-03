@@ -25,17 +25,6 @@ export default class BoardCtrl {
 
   tryToRotate() {
     this.rotateWithOffset(0) || this.rotateWithOffset(1) || this.rotateWithOffset(-1) || this.rotateWithOffset(2) || this.rotateWithOffset(-2);
-    // if (this.canRotate(0)) {
-    //   this.rotate(0);
-    // } else if (this.canRotate(1)) {
-    //   this.rotate(1);
-    // } else if (this.canRotate(-1)) {
-    //   this.rotate(-1);
-    // } else if (this.canRotate(2)) {
-    //   this.rotate(2);
-    // } else if (this.canRotate(-2)) {
-    //   this.rotate(-2);
-    // }
   }
 
   canMove(offset) {
