@@ -14,13 +14,15 @@ const Colors = [
 ];
 
 export default class Board extends Phaser.Group {
-  constructor (game, index, x, y) {
+  constructor (game, index, x, y, players) {
     super(game, null, 'Board');
 
     this.game = game;
     this.index = index;
     this.x = x;
     this.y = y;
+    this.points = 0;
+    this.players = players;
 
     this.ctrl = new BoardCtrl(this);
 
@@ -168,6 +170,7 @@ export default class Board extends Phaser.Group {
 
     _.each(lines, this.removeLine.bind(this), this);
     this.removeEmptyPieces();
+    this.assignPoints(lines.length);
   }
 
   removeLine(line) {
@@ -184,5 +187,15 @@ export default class Board extends Phaser.Group {
     const emptyPieces = _.filter(this.stoppedPieces, piece => piece.isEmpty);
 
     this.pieces = _.without(this.pieces, emptyPieces);
+  }
+
+  fuckEnemies(numberOfLines) {
+    this.players.fuckEnemies(numberOfLines);
+  }
+
+  assignPoints(numberOfLines) {
+    this.points += numberOfLines * 2;
+
+    this.pointsDisplay.setText('Score: ' + this.points);
   }
 }

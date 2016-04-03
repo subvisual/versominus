@@ -13,14 +13,22 @@ const Colors = [
 ];
 
 export default class BoardWrapper extends Phaser.Group {
-  constructor (game, index) {
+  constructor (game, index, boards) {
     super(game, null, 'BoardWrapper');
 
     this.game = game;
     this.index = index;
+    this.boards = boards;
 
     this.setBackground();
     this.setBoard();
+
+    this.pointsDisplay = this.game.add.text(this.index * Width + InnerOffsetLeft, 400, 'Score: ', {
+      font: '20px Arial',
+      fill: '#ff0044',
+      align: 'center'
+    });
+    this.pointsDisplay.anchor.setTo(0.5, 0.5);
   }
 
   get ctrl() {
@@ -46,6 +54,7 @@ export default class BoardWrapper extends Phaser.Group {
       this.index,
       this.index * Width + InnerOffsetLeft,
       InnerOffsetTop,
+      this.boards
     );
 
     this.add(this.board);

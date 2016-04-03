@@ -23,7 +23,7 @@ export default class Game extends Phaser.State {
   }
 
   addBoardForPlayer(player) {
-    const board = new BoardWrapper(this.game, player.playerNumber);
+    const board = new BoardWrapper(this.game, player.playerNumber, this.boards);
     this.boards[player.playerNumber] = board;
     this.game.add.existing(board);
   }
