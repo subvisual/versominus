@@ -1,4 +1,4 @@
-import S from './S'
+import S from './S';
 
 export default class SReverse extends S {
   get startPositions() {
@@ -7,6 +7,6 @@ export default class SReverse extends S {
       { x: -1, y: 0 },
       { x: 0, y: 0 },
       { x: 0, y: 1 }
-    ]
+    ];
   }
 }

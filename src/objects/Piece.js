@@ -6,4 +6,4 @@ export default {
     let key = Object.keys(Pieces)[index];
     return new Pieces[key](game, x, y);
   }
-}
+};

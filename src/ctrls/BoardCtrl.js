@@ -7,9 +7,9 @@ export default class BoardCtrl {
 
   sendAction(data) {
     switch (data) {
-      case 'LEFT': this.moveLeft(); break;
-      case 'RIGHT': this.moveRight(); break;
-      case 'ROTATE': this.tryToRotate(); break;
+    case 'LEFT': this.moveLeft(); break;
+    case 'RIGHT': this.moveRight(); break;
+    case 'ROTATE': this.tryToRotate(); break;
     }
   }
 

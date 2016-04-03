@@ -7,15 +7,8 @@ const Width = 300;
 const Height = 600;
 const Columns = 10;
 
-const Colors = [
-  Phaser.Color.RGBtoString(96, 184, 213, 0.2, '#'),
-  Phaser.Color.RGBtoString(118, 230, 198, 0.2, '#'),
-  '#e57676',
-  Phaser.Color.RGBtoString(254, 208, 92, 0.2, '#'),
-];
-
 export default class Board extends Phaser.Group {
-  constructor (game, index, x, y, boards) {
+  constructor (game, wrapper, index, x, y, boards) {
     super(game, null, 'Board');
 
     this.game = game;
@@ -57,7 +50,7 @@ export default class Board extends Phaser.Group {
     });
   }
 
-  isPieceAtBottom(piece) {
+  isPieceAtBottom() {
     return _.some(this.movingBlocks(), block => (
       block.y + block.size == Height
     ));
@@ -201,7 +194,6 @@ export default class Board extends Phaser.Group {
   }
 
   fuckMe(numberOfLines) {
-    console.log(numberOfLines);
     for (var i = 0; i <= numberOfLines; i++) {
       this.addPiece(new AlmostCompleteLine(this.game, 0, 0));
     }

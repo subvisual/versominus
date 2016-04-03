@@ -36,7 +36,7 @@ export default class extends Phaser.Group {
 
       block.x = x;
       block.y = y;
-    })
+    });
   }
 
   addBlocks() {

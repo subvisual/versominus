@@ -1,4 +1,4 @@
-import Base from './Base'
+import Base from './Base';
 
 export default class Square extends Base {
   get color() {
@@ -11,7 +11,7 @@ export default class Square extends Base {
       { x: 0, y: -1 },
       { x: -1, y: 0 },
       { x: 0, y: 0 }
-    ]
+    ];
   }
 
   get rotate() {

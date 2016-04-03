@@ -5,13 +5,6 @@ const Height = 630;
 const InnerOffsetLeft = 15;
 const InnerOffsetTop = 30;
 
-const Colors = [
-  '#69bfde',
-  '#47ecc2',
-  '#fed15c',
-  '#fb7e7e'
-];
-
 export default class BoardWrapper extends Phaser.Group {
   constructor (game, index, boards) {
     super(game, null, 'BoardWrapper');
