@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import Block from './Block';
-const TimeBetweenTicks = 500;
+const TimeBetweenTicks = 250;
 
 export default class extends Phaser.Group {
   constructor(game, x, y) {
@@ -43,8 +43,13 @@ export default class extends Phaser.Group {
     });
   }
 
+  removeBlocks(block) {
+    this.remove(block);
+    this.blocks = _.without(this.blocks, block);
+  }
+
   get blockSize() {
-    return this.blocks[0].height;
+    return _.sample(this.blocks).height;
   }
 
   update() {
@@ -79,5 +84,9 @@ export default class extends Phaser.Group {
         this.x + block.x == stopped.x && this.y + block.y + block.height == stopped.y
       ))
     ));
+  }
+
+  get isEmpty() {
+    return !this.blocks.length;
   }
 }

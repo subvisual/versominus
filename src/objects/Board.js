@@ -1,4 +1,4 @@
-import _ from 'lodash';
+;import _ from 'lodash';
 import Piece from './Piece';
 import BoardCtrl from '../ctrls/BoardCtrl';
 
@@ -6,6 +6,7 @@ const Width = 200;
 const Height = 400;
 const OffsetLeft = 25;
 const OffsetTop = 80;
+const Rows = 10;
 
 const Colors = [
   Phaser.Color.RGBtoString(96, 184, 213, 0.2, '#'),
@@ -30,6 +31,7 @@ export default class Board extends Phaser.Group {
   }
 
   update() {
+    this.removeCompletedLines();
     this.instantiateNewPiece();
     this.updatePiecesState();
     super.update();
@@ -60,6 +62,10 @@ export default class Board extends Phaser.Group {
     return _.some(this.stoppedPieces, (otherPiece => piece.x == otherPiece.x && piece.y + piece.blockSize == otherPiece.y));
   }
 
+  hasBlockBelow(block) {
+    return _.some(this.stoppedBlocks, (otherBlock => block.x == otherBlock.x && block.y + block.blockSize == otherBlock.y));
+  }
+
   isSideFree(block, direction) {
     if (direction < 0 && block.x === 0) {
       return false;
@@ -82,7 +88,7 @@ export default class Board extends Phaser.Group {
   stoppedBlocks() {
     return _.flatten(this.stoppedPieces.map((piece) =>
       piece.blocks.map(block =>
-        ({ x: block.x + piece.x, y: block.y + piece.y, size: piece.blockSize })
+        ({ x: block.x + piece.x, y: block.y + piece.y, size: piece.blockSize, piece, block})
       )
     ));
   }
@@ -147,5 +153,48 @@ export default class Board extends Phaser.Group {
     ));
 
     return stoppedCheck;
+  }
+
+  allBlocks() {
+    const blocks = [];
+    this.pieces.forEach(piece => blocks.push(piece.blocks));
+    return _.flatten(blocks);
+  }
+
+  removeCompletedLines() {
+    let lines = _.groupBy(this.stoppedBlocks(), block => (block.y));
+    lines = _.filter(lines, line => line.length === Rows);
+
+    _.each(lines, this.removeLine, this);
+    _.each(lines, this.moveBoardDown.bind(this));
+    this.removeEmptyPieces();
+  }
+
+  removeLine(line) {
+    line.forEach(block => {
+      block.piece.removeBlocks(block.block);
+    });
+  }
+
+  removeEmptyPieces() {
+    const emptyPieces = _.filter(this.stoppedPieces, piece => piece.isEmpty);
+
+    this.pieces = _.without(this.pieces, emptyPieces);
+  }
+
+  moveBoardDown(line) {
+    const upperBlocks = _.filter(this.stoppedBlocks(), block => {
+      return block.y < line[0].y && block.x === line[0].x;
+    });
+
+    console.log(upperBlocks);
+
+    upperBlocks.forEach(block => {
+      console.log(this.hasBlockBelow(block));
+      if (this.hasBlockBelow(block))
+        return;
+
+      block.block.y += block.blockSize;
+    });
   }
 }

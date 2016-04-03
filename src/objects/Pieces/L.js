@@ -1,4 +1,4 @@
-import Base from './Base'
+import Base from './Base';
 
 export default class L extends Base {
   get color() {
@@ -11,6 +11,6 @@ export default class L extends Base {
       { x: 0, y: 1 },
       { x: 0, y: 2 },
       { x: 0, y: 3 }
-    ]
+    ];
   }
 }
