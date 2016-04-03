@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html class="FullScreen">
+  <head>
+    <link rel="stylesheet" href="controller.css">
+    <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.4.0.js"></script>
+  </head>
+  <body class="FullScreen">
+
+    <div class="Controller" id="js-Player">
+      <div class="Controller-row Controller-mainRow ">
+        <div class="Controller-button" onclick="VERSOMINUS.sendMessageToScreen(VERSOMINUS.actions.left)">
+          <img class="Controller-imageLeft" src="http://subvisual.github.io/versominus/assets/left.png"/>
+        </div>
+        <div class="Controller-button" onclick="VERSOMINUS.sendMessageToScreen(VERSOMINUS.actions.rotate)">
+          <span id="js-PlayerName" class="PlayerName"></span>
+          <img class="Controller-imageRotate" src="http://subvisual.github.io/versominus/assets/rotate.png"/>
+        </div>
+        <div class="Controller-button" onclick="VERSOMINUS.sendMessageToScreen(VERSOMINUS.actions.right)">
+          <img class="Controller-imageRight" src="http://subvisual.github.io/versominus/assets/right.png"/>
+        </div>
+      </div>
+
+      <div class="Controller-row Controller--rowWithGutters" id="js-Enemies">
+      </div>
+    </div>
+
+    <script src="controller.js"></script>
+  </body>
+</html>
