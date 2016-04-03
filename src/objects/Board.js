@@ -122,8 +122,10 @@ export default class Board extends Phaser.Group {
     this.add(bg);
   }
 
-  addPiece() {
-    const piece = Piece.createRandom(this.game, this.width / 2, 0);
+  addPiece(x = null, y = null) {
+    x = x || this.width / 2;
+    y = y || 0;
+    const piece = Piece.createRandom(this.game, x, y);
 
     this.pieces = this.pieces || [];
     this.add(piece);
@@ -194,9 +196,17 @@ export default class Board extends Phaser.Group {
   }
 
   fuckMe(numberOfLines) {
-    for (var i = 0; i <= numberOfLines; i++) {
-      this.addPiece(new AlmostCompleteLine(this.game, 0, 0));
+    let piece = this.movingPiece;
+    if (!piece) {
+      return;
     }
+    let x = piece.x;
+    let y = piece.y;
+
+    piece.destroy();
+    this.remove(piece);
+    this.pieces = _.without(this.pieces, piece);
+    this.addPiece(x, y);
   }
 
   assignPoints(numberOfLines) {
