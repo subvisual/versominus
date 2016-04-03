@@ -165,8 +165,7 @@ export default class Board extends Phaser.Group {
     let lines = _.groupBy(this.stoppedBlocks(), block => (block.y));
     lines = _.filter(lines, line => line.length === Columns);
 
-    _.each(lines, this.removeLine, this);
-    _.each(lines, this.moveBoardDown.bind(this));
+    _.each(lines, this.removeLine.bind(this), this);
     this.removeEmptyPieces();
   }
 
@@ -174,27 +173,15 @@ export default class Board extends Phaser.Group {
     line.forEach(block => {
       block.piece.removeBlocks(block.block);
     });
+
+    const upperBlocks = _.filter(this.stoppedBlocks(), block => block.y < line[0].y);
+
+    upperBlocks.forEach(block => block.block.y += block.size);
   }
 
   removeEmptyPieces() {
     const emptyPieces = _.filter(this.stoppedPieces, piece => piece.isEmpty);
 
     this.pieces = _.without(this.pieces, emptyPieces);
-  }
-
-  moveBoardDown(line) {
-    const upperBlocks = _.filter(this.stoppedBlocks(), block => {
-      return block.y < line[0].y && block.x === line[0].x;
-    });
-
-    console.log(upperBlocks);
-
-    upperBlocks.forEach(block => {
-      console.log(this.hasBlockBelow(block));
-      if (this.hasBlockBelow(block))
-        return;
-
-      block.block.y += block.blockSize;
-    });
   }
 }
