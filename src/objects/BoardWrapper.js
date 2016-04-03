@@ -22,13 +22,7 @@ export default class BoardWrapper extends Phaser.Group {
 
     this.setBackground();
     this.setBoard();
-
-    this.pointsDisplay = this.game.add.text(this.index * Width + InnerOffsetLeft, 400, 'Score: ', {
-      font: '20px Arial',
-      fill: '#ff0044',
-      align: 'center'
-    });
-    this.pointsDisplay.anchor.setTo(0.5, 0.5);
+    this.setText();
   }
 
   get ctrl() {
@@ -51,6 +45,7 @@ export default class BoardWrapper extends Phaser.Group {
   setBoard() {
     this.board = new Board(
       this.game,
+      this,
       this.index,
       this.index * Width + InnerOffsetLeft,
       InnerOffsetTop,
@@ -58,5 +53,19 @@ export default class BoardWrapper extends Phaser.Group {
     );
 
     this.add(this.board);
+  }
+
+  setText() {
+    this.scoreText = new Phaser.Text(this.game, this.index * Width + 50, 10, 'Score: 0', {
+      font: '20px Arial',
+      fill: '#fff',
+      align: 'left'
+    });
+
+    this.add(this.scoreText);
+  }
+
+  setScore(score) {
+    this.scoreText.setText('Score: ' + score);
   }
 }

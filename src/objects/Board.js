@@ -14,10 +14,11 @@ const Colors = [
 ];
 
 export default class Board extends Phaser.Group {
-  constructor (game, index, x, y, players) {
+  constructor (game, wrapper, index, x, y, players) {
     super(game, null, 'Board');
 
     this.game = game;
+    this.wrapper = wrapper;
     this.index = index;
     this.x = x;
     this.y = y;
@@ -196,6 +197,6 @@ export default class Board extends Phaser.Group {
   assignPoints(numberOfLines) {
     this.points += numberOfLines * 2;
 
-    this.pointsDisplay.setText('Score: ' + this.points);
+    this.wrapper.setScore(this.points);
   }
 }
