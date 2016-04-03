@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import Piece from './Piece';
 import BoardCtrl from '../ctrls/BoardCtrl';
+import AlmostCompleteLine from './Pieces/AlmostCompleteLine';
 
 const Width = 300;
 const Height = 600;
@@ -14,7 +15,7 @@ const Colors = [
 ];
 
 export default class Board extends Phaser.Group {
-  constructor (game, wrapper, index, x, y, players) {
+  constructor (game, index, x, y, boards) {
     super(game, null, 'Board');
 
     this.game = game;
@@ -23,7 +24,7 @@ export default class Board extends Phaser.Group {
     this.x = x;
     this.y = y;
     this.points = 0;
-    this.players = players;
+    this.boards = boards;
 
     this.ctrl = new BoardCtrl(this);
 
@@ -172,6 +173,7 @@ export default class Board extends Phaser.Group {
     _.each(lines, this.removeLine.bind(this), this);
     this.removeEmptyPieces();
     this.assignPoints(lines.length);
+    this.fuckEnemies(lines.length);
   }
 
   removeLine(line) {
@@ -191,7 +193,18 @@ export default class Board extends Phaser.Group {
   }
 
   fuckEnemies(numberOfLines) {
-    this.players.fuckEnemies(numberOfLines);
+    if (!numberOfLines)
+      return;
+
+    const enemies = _.filter(this.boards, board => board.index !== this.index);
+    enemies.forEach(enemy => enemy.board.fuckMe(numberOfLines));
+  }
+
+  fuckMe(numberOfLines) {
+    console.log(numberOfLines);
+    for (var i = 0; i <= numberOfLines; i++) {
+      this.addPiece(new AlmostCompleteLine(this.game, 0, 0));
+    }
   }
 
   assignPoints(numberOfLines) {
