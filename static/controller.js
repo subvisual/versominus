@@ -104,6 +104,15 @@ function addEnemy(enemies) {
     enemyElement.innerHTML = enemy.nickName;
     enemyElement.id = 'js-Enemy-' + enemy.playerNumber;
 
+    if (playerExists(enemy.playerNumber))
+      return;
+
     VERSOMINUS.enemiesContainer.appendChild(enemyElement);
   };
+}
+
+function playerExists(playerNumber) {
+  var id = 'js-Enemy-' + playerNumber;
+
+  return document.getElementById(id);
 }

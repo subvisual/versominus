@@ -16,17 +16,18 @@ export default class Players {
 
   onConnect(deviceId) {
     this.setActivePlayers(Object.keys(this.players).length + 1);
-    this.addPlayer(deviceId);
+    const player = this.addPlayer(deviceId);
     this.setMasterPlayer();
-    this.introducePlayers();
     this.sendSelfState(deviceId);
-    this.connectListeners.forEach(listener => listener(this.players[deviceId]));
+    this.introducePlayers();
+    this.connectListeners.forEach(listener => listener(player));
   }
 
   sendSelfState(deviceId) {
+    const player = this.players[this.getPlayerNumber(deviceId)];
     this.controller.sendMessage(deviceId, {
       type: 'setPlayer',
-      player: this.players[deviceId]
+      player: player
     });
   }
 
@@ -40,34 +41,42 @@ export default class Players {
   }
 
   addPlayer(deviceId) {
-    if (this.players[deviceId])
+    const nickName = this.controller.getNickname(deviceId);
+    const playerNumber = this.getPlayerNumber(deviceId);
+
+    if (this.players[playerNumber])
       return;
 
-    const nickName = this.controller.getNickname(deviceId);
-    const playerNumber =  this.controller.convertDeviceIdToPlayerNumber(deviceId);
+    const player = { deviceId, nickName, playerNumber };
 
-    this.players[deviceId] = { deviceId, nickName, playerNumber };
+    this.players[playerNumber] = player;
+    return player;
+  }
+
+  getPlayerNumber(deviceId) {
+    return this.controller.convertDeviceIdToPlayerNumber(deviceId);
   }
 
   setMasterPlayer() {
     const master = this.controller.getMasterControllerDeviceId();
+    const playerNumber = this.getPlayerNumber(master);
 
-    if (!master)
+    if (!playerNumber)
       return;
 
-    this.players[master].master = true;
+    this.players[playerNumber].master = true;
   }
 
   introducePlayers() {
-    _.each(this.players, player => {
-      const enemies = _.omit(this.players, (enemy) => {
-        return enemy.deviceId === player.deviceId;
-      });
+    const type = 'playersList';
 
-      this.controller.sendMessage(player.deviceId, {
-        type: 'playersList',
-        enemies
-      });
+    _.each(this.players, player => {
+      const enemies = _.reject(this.players, enemy => enemy.playerNumber === player.playerNumber);
+
+      if (!Object.keys(enemies).length)
+        return;
+
+      this.controller.sendMessage(player.deviceId, { type, enemies });
     });
   }
 
