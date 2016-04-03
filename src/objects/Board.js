@@ -125,11 +125,7 @@ export default class Board extends Phaser.Group {
   }
 
   addPiece() {
-    const piece = Piece.createRandom(this.game);
-    const centered_x = Math.floor((this.width - piece.width) * 0.5);
-    const centered_column = centered_x % piece.blockSize;
-    console.log("centered_column", centered_column);
-    piece.setPosition(centered_column * piece.blockSize, 0);
+    const piece = Piece.createRandom(this.game, this.width / 2, 0);
 
     this.pieces = this.pieces || [];
     this.add(piece);
