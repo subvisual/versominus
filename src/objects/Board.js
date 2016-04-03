@@ -136,7 +136,7 @@ export default class Board extends Phaser.Group {
     let movingBlocks = this.movingBlocks();
 
     let boundariesCheck = _.some(movingBlocks, block => (
-      block.x < 0 || block.x >= this.width || block.y < 0 || block.y >= this.height
+      block.x < 0 || block.x >= Width || block.y < 0 || block.y >= Height
     ));
 
 
