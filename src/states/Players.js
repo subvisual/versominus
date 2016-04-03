@@ -32,7 +32,8 @@ export default class Players {
   }
 
   onMessage(from, data) {
-    const player = this.players[from];
+    const playerNumber = this.getPlayerNumber(from);
+    const player = this.players[playerNumber];
 
     if (!player)
       return;
@@ -60,9 +61,6 @@ export default class Players {
   setMasterPlayer() {
     const master = this.controller.getMasterControllerDeviceId();
     const playerNumber = this.getPlayerNumber(master);
-
-    if (!playerNumber)
-      return;
 
     this.players[playerNumber].master = true;
   }

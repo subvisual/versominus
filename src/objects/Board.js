@@ -29,6 +29,9 @@ export default class Board extends Phaser.Group {
   }
 
   update() {
+    if (!this.game.isRunning)
+      return;
+
     this.removeCompletedLines();
     this.instantiateNewPiece();
     this.updatePiecesState();

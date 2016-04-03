@@ -8,8 +8,8 @@ const InnerOffsetTop = 30;
 const Colors = [
   '#69bfde',
   '#47ecc2',
-  '#fb7e7e',
-  '#fed15c'
+  '#fed15c',
+  '#fb7e7e'
 ];
 
 export default class BoardWrapper extends Phaser.Group {

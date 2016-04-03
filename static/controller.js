@@ -89,6 +89,10 @@ function setPlayer(data) {
     return;
 
   VERSOMINUS.playerContainer.className += color;
+
+  if (data.master) {
+    alert('Click rotate to start the game');
+  }
 }
 
 function addEnemy(enemies) {
