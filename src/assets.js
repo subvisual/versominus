@@ -43,6 +43,10 @@ export default {
     type: 'image'
   },
   {
+    key: 'red_block',
+    type: 'image'
+  },
+  {
     key: 'white_block',
     type: 'image'
   },
