@@ -1,9 +1,9 @@
 import Board from './Board';
 
-const Width = 250;
-const Height = 480;
-const InnerOffsetLeft = 25;
-const InnerOffsetTop = 80;
+const Width = 330;
+const Height = 630;
+const InnerOffsetLeft = 15;
+const InnerOffsetTop = 30;
 
 const Colors = [
   '#69bfde',

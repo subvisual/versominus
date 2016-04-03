@@ -2,10 +2,8 @@ import _ from 'lodash';
 import Piece from './Piece';
 import BoardCtrl from '../ctrls/BoardCtrl';
 
-const Width = 200;
-const Height = 400;
-const OffsetLeft = 25;
-const OffsetTop = 80;
+const Width = 300;
+const Height = 600;
 const Columns = 10;
 
 const Colors = [
