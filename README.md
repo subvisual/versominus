@@ -10,3 +10,5 @@
 3. Enter the numeric code given on the computer
 4. Each player should see a controller on their smartphone
 5. Once a player touches the central circle, the game starts
+
+# 

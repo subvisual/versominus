@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import Piece from './Piece';
 import BoardCtrl from '../ctrls/BoardCtrl';
-import AlmostCompleteLine from './Pieces/AlmostCompleteLine';
 
 const Width = 300;
 const Height = 600;
@@ -195,7 +194,7 @@ export default class Board extends Phaser.Group {
     enemies.forEach(enemy => enemy.board.fuckMe(numberOfLines));
   }
 
-  fuckMe(numberOfLines) {
+  fuckMe() {
     let piece = this.movingPiece;
     if (!piece) {
       return;
