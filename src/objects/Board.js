@@ -1,4 +1,4 @@
-;import _ from 'lodash';
+import _ from 'lodash';
 import Piece from './Piece';
 import BoardCtrl from '../ctrls/BoardCtrl';
 
@@ -6,7 +6,7 @@ const Width = 200;
 const Height = 400;
 const OffsetLeft = 25;
 const OffsetTop = 80;
-const Rows = 10;
+const Columns = 10;
 
 const Colors = [
   Phaser.Color.RGBtoString(96, 184, 213, 0.2, '#'),
@@ -126,8 +126,10 @@ export default class Board extends Phaser.Group {
 
   addPiece() {
     const piece = Piece.createRandom(this.game);
-    const centered_x = (this.width - piece.width) / 2;
-    piece.setPosition(centered_x, 0);
+    const centered_x = Math.floor((this.width - piece.width) * 0.5);
+    const centered_column = centered_x % piece.blockSize;
+    console.log("centered_column", centered_column);
+    piece.setPosition(centered_column * piece.blockSize, 0);
 
     this.pieces = this.pieces || [];
     this.add(piece);
@@ -165,7 +167,7 @@ export default class Board extends Phaser.Group {
 
   removeCompletedLines() {
     let lines = _.groupBy(this.stoppedBlocks(), block => (block.y));
-    lines = _.filter(lines, line => line.length === Rows);
+    lines = _.filter(lines, line => line.length === Columns);
 
     _.each(lines, this.removeLine, this);
     _.each(lines, this.moveBoardDown.bind(this));
