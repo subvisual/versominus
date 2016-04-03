@@ -125,7 +125,9 @@ export default class Board extends Phaser.Group {
   }
 
   addPiece() {
-    var piece = Piece.createRandom(this.game, this.width / 2, 0);
+    const piece = Piece.createRandom(this.game);
+    const centered_x = (this.width - piece.width) / 2;
+    piece.setPosition(centered_x, 0);
 
     this.pieces = this.pieces || [];
     this.add(piece);

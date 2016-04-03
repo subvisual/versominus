@@ -13,6 +13,12 @@ export default class extends Phaser.Group {
     this.addBlocks();
   }
 
+  get width() {
+    const max_x = _.reduce(this.blocks, (max, block) => Math.max(max, block.x), -1);
+
+    return max_x + 1;
+  }
+
   rotate() {
     this.blocks.forEach(block => {
       let x = block.y;
@@ -88,5 +94,10 @@ export default class extends Phaser.Group {
 
   get isEmpty() {
     return !this.blocks.length;
+  }
+
+  setPosition(x, y) {
+    this.x = x;
+    this.y = y;
   }
 }
