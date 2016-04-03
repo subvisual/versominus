@@ -1,14 +1,13 @@
 export default class BoardCtrl {
   constructor(board) {
     this.board = board;
-    console.log('asd')
   }
 
   sendAction(data) {
     switch (data) {
       case "LEFT": this.moveLeft(); break;
       case "RIGHT": this.moveRight(); break;
-      case "ROTATE": break;
+      case "ROTATE": this.tryToRotate(); break;
     }
   }
 
@@ -24,6 +23,21 @@ export default class BoardCtrl {
     }
   }
 
+  tryToRotate() {
+    this.rotateWithOffset(0) || this.rotateWithOffset(1) || this.rotateWithOffset(-1) || this.rotateWithOffset(2) || this.rotateWithOffset(-2);
+    // if (this.canRotate(0)) {
+    //   this.rotate(0);
+    // } else if (this.canRotate(1)) {
+    //   this.rotate(1);
+    // } else if (this.canRotate(-1)) {
+    //   this.rotate(-1);
+    // } else if (this.canRotate(2)) {
+    //   this.rotate(2);
+    // } else if (this.canRotate(-2)) {
+    //   this.rotate(-2);
+    // }
+  }
+
   canMove(offset) {
     return _.every(this.board.movingBlocks(), (block) =>
       this.board.isSideFree(block, offset)
@@ -31,9 +45,20 @@ export default class BoardCtrl {
   }
 
   move(offset) {
-    console.log(4)
     this.board.movingPieces.forEach(piece => {
       piece.x += piece.blockSize * offset;
     })
+  }
+
+  rotateWithOffset(offset) {
+    this.move(offset);
+    this.board.movingPiece.rotate();
+    if (this.board.isInvalid()) {
+      this.board.movingPiece.unrotate();
+      this.move(-offset);
+      return false;
+    } else {
+      return true;
+    }
   }
 }

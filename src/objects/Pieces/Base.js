@@ -13,9 +13,29 @@ export default class extends Phaser.Group {
     this.addBlocks();
   }
 
+  rotate() {
+    this.blocks.forEach(block => {
+      let x = block.y;
+      let y = - block.x;
+
+      block.x = x;
+      block.y = y;
+    });
+  }
+
+  unrotate() {
+    this.blocks.forEach(block => {
+      let x = - block.y;
+      let y = block.x;
+
+      block.x = x;
+      block.y = y;
+    })
+  }
+
   addBlocks() {
     this.startPositions.forEach(position => {
-      const block = new Block(this.game, this.x, this.y, position.x, position.y, this.color);
+      const block = new Block(this.game, position.x, position.y, this.color);
 
       this.add(block);
       this.blocks = this.blocks || [];
@@ -54,7 +74,6 @@ export default class extends Phaser.Group {
   }
 
   checkCollisionBelow(stoppedBlocks) {
-    console.log(2)
     return _.some(this.blocks, block => (
       _.some(stoppedBlocks, (stopped) => (
         this.x + block.x == stopped.x && this.y + block.y + block.height == stopped.y

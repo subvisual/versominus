@@ -51,7 +51,9 @@ export default class Board extends Phaser.Group {
   }
 
   isPieceAtBottom(piece) {
-    return piece.y + piece.height == Height;
+    return _.some(this.movingBlocks(), block => (
+      block.y + block.size == Height
+    ));
   }
 
   hasPieceBelow(piece) {
@@ -59,7 +61,6 @@ export default class Board extends Phaser.Group {
   }
 
   isSideFree(block, direction) {
-    console.log(9)
     if (direction < 0 && block.x === 0) {
       return false;
     }
@@ -98,6 +99,10 @@ export default class Board extends Phaser.Group {
     return _.reject(this.pieces, (piece) => piece.stopped);
   }
 
+  get movingPiece() {
+    return _.find(this.pieces, (piece) => !piece.stopped);
+  }
+
   get stoppedPieces() {
     return _.filter(this.pieces, (piece) => piece.stopped);
   }
@@ -114,10 +119,33 @@ export default class Board extends Phaser.Group {
   }
 
   addPiece() {
-    var piece = Piece.createRandom(this.game, 0, 0);
+    var piece = Piece.createRandom(this.game, this.width / 2, 0);
 
     this.pieces = this.pieces || [];
     this.add(piece);
     this.pieces.push(piece);
+  }
+
+  isInvalid() {
+    let movingBlocks = this.movingBlocks();
+
+    let boundariesCheck = _.some(movingBlocks, block => (
+      block.x < 0 || block.x >= this.width || block.y < 0 || block.y >= this.height
+    ));
+
+
+    if (boundariesCheck) {
+      return true;
+    }
+
+    let stoppedBlocks = this.stoppedBlocks();
+
+    let stoppedCheck = _.some(movingBlocks, movingBlock => (
+      _.some(stoppedBlocks, stoppedBlock => (
+        movingBlock.x == stoppedBlock.x && movingBlock.y == stoppedBlock.y
+      ))
+    ));
+
+    return stoppedCheck;
   }
 }
