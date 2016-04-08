@@ -14,6 +14,9 @@ parserOptions:
   ecmaVersion: 6                      # Validate ES2015 features
   sourceType: module                  # Allow ES2015 modules
 
+ecmaFeatures:
+  modules: true
+
 globals:
   PIXI: false
   Phaser: false

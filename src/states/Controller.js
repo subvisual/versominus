@@ -1,5 +1,5 @@
 /* eslint-disable */
-import AirConsole from './Air_Console';
+import AirConsole from '../vendor/Air_Console';
 
 export default class Controller {
   constructor () {

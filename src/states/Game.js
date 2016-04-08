@@ -1,11 +1,11 @@
 import Players from './Players';
-import Controller from './Controller';
 import BoardWrapper from '../objects/BoardWrapper';
+import InputController from '../ctrls/InputCtrl';
 
 export default class Game extends Phaser.State {
   create () {
-    this.controller = new Controller();
-    this.players = new Players(this.controller, this.startGame.bind(this));
+    this.inputCtrl = InputController(this.game);
+    this.players = new Players(this.inputCtrl, this.startGame.bind(this));
 
     this.boards = {};
     this.players.onPlayerConnect(this.addBoardForPlayer.bind(this));
