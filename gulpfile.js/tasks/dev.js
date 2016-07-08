@@ -61,5 +61,4 @@ module.exports = function (gulp, $, config) {
 
   // Aliasing `dev` as default task.
   gulp.task('default', [ 'dev' ]);
-
 };
