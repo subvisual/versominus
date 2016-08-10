@@ -129,7 +129,7 @@ export default class Board extends Phaser.Group {
       this.game,
       0, 0,
       Width, Height,
-      `board${this.index}`
+      `boards/${this.index}`
     );
 
     this.add(bg);

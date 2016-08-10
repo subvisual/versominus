@@ -31,59 +31,43 @@ export default {
     type: 'image'
   },
   {
-    key: 'blue_block',
+    key: 'blocks/blue',
     type: 'image'
   },
   {
-    key: 'cyan_block',
+    key: 'blocks/cyan',
     type: 'image'
   },
   {
-    key: 'purple_block',
+    key: 'blocks/purple',
     type: 'image'
   },
   {
-    key: 'red_block',
+    key: 'blocks/red',
     type: 'image'
   },
   {
-    key: 'white_block',
+    key: 'blocks/white',
     type: 'image'
   },
   {
-    key: 'yellow_block',
+    key: 'blocks/yellow',
     type: 'image'
   },
   {
-    key: 'board0',
+    key: 'boards/0',
     type: 'image'
   },
   {
-    key: 'board1',
+    key: 'boards/1',
     type: 'image'
   },
   {
-    key: 'board2',
+    key: 'boards/2',
     type: 'image'
   },
   {
-    key: 'board3',
-    type: 'image'
-  },
-  {
-    key: 'inner-board0',
-    type: 'image'
-  },
-  {
-    key: 'inner-board1',
-    type: 'image'
-  },
-  {
-    key: 'inner-board2',
-    type: 'image'
-  },
-  {
-    key: 'inner-board3',
+    key: 'boards/3',
     type: 'image'
   }
   // }, {
