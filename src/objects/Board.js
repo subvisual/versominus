@@ -7,20 +7,20 @@ const Height = 600;
 const Columns = 10;
 
 export default class Board extends Phaser.Group {
-  constructor (game, wrapper, index, x, y, boards) {
+  constructor (game, index, boards) {
     super(game, null, 'Board');
 
     this.game = game;
-    this.wrapper = wrapper;
     this.index = index;
-    this.x = x;
-    this.y = y;
+    this.x = index * Width;
+    this.y = 0;
     this.points = 0;
     this.boards = boards;
 
     this.ctrl = new BoardCtrl(this);
 
     this.setBackground();
+    this.setText();
     this.addPiece();
   }
 
@@ -38,6 +38,20 @@ export default class Board extends Phaser.Group {
     if (this.movingPieces.length == 0) {
       this.addPiece();
     }
+  }
+
+  setText() {
+    this.scoreText = new Phaser.Text(this.game, 50, 10, 'Score: 0', {
+      font: '20px Arial',
+      fill: '#fff',
+      align: 'left'
+    });
+
+    this.add(this.scoreText);
+  }
+
+  setScore(score) {
+    this.scoreText.setText('Score: ' + score);
   }
 
   updatePiecesState() {
@@ -115,7 +129,7 @@ export default class Board extends Phaser.Group {
       this.game,
       0, 0,
       Width, Height,
-      `inner-board${this.index}`
+      `board${this.index}`
     );
 
     this.add(bg);

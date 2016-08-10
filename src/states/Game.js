@@ -1,5 +1,5 @@
 import Players from './Players';
-import BoardWrapper from '../objects/BoardWrapper';
+import Board from '../objects/Board';
 import InputController from '../ctrls/InputCtrl';
 
 export default class Game extends Phaser.State {
@@ -23,7 +23,7 @@ export default class Game extends Phaser.State {
   }
 
   addBoardForPlayer(player) {
-    const board = new BoardWrapper(this.game, player.playerNumber, this.boards);
+    const board = new Board(this.game, player.playerNumber, this.boards);
     this.boards[player.playerNumber] = board;
     this.game.add.existing(board);
   }
