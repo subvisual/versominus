@@ -11,8 +11,8 @@ export default class KeyboardController {
   init() {
     this.players.push('Debug 1');
     this.sendConnect(0);
-    this.players.push('Debug 2');
-    this.sendConnect(1);
+    // this.players.push('Debug 2');
+    // this.sendConnect(1);
     this.game.input.keyboard.onDownCallback = this.onKeyDown.bind(this);
   }
 
