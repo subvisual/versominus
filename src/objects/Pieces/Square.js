@@ -14,9 +14,6 @@ export default class Square extends Base {
     ];
   }
 
-  get rotate() {
-  }
-
-  get unrotate() {
+  rotate(_direction) {
   }
 }

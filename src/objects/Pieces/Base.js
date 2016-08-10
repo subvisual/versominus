@@ -19,7 +19,7 @@ export default class extends Phaser.Group {
     return max_x + 1;
   }
 
-  rotate() {
+  rotate(direction = 1) {
     this.blocks.forEach(block => {
       let x = block.y;
       let y = - block.x;
@@ -29,14 +29,9 @@ export default class extends Phaser.Group {
     });
   }
 
-  unrotate() {
-    this.blocks.forEach(block => {
-      let x = - block.y;
-      let y = block.x;
-
-      block.x = x;
-      block.y = y;
-    });
+  move(offsetX, offsetY) {
+    this.x += this.blockSize * offsetX;
+    this.y += this.blockSize * offsetY;
   }
 
   addBlocks() {
@@ -55,7 +50,7 @@ export default class extends Phaser.Group {
   }
 
   get blockSize() {
-    return _.sample(this.blocks).height;
+    return this.blocks[0].height;
   }
 
   update() {

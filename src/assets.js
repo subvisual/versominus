@@ -27,7 +27,7 @@ export default {
     type: 'image'
   },
   {
-    key: 'zamith',
+    key: 'blocks/zamith',
     type: 'image'
   },
   {

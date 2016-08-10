@@ -15,13 +15,13 @@ export default class BoardCtrl {
 
   moveLeft() {
     if (this.canMove(-1)) {
-      this.move(-1);
+      this.move(-1, 0);
     }
   }
 
   moveRight() {
     if (this.canMove(1)) {
-      this.move(1);
+      this.move(1, 0);
     }
   }
 
@@ -35,21 +35,23 @@ export default class BoardCtrl {
     );
   }
 
-  move(offset) {
+  move(offsetX, offsetY) {
     this.board.movingPieces.forEach(piece => {
-      piece.x += piece.blockSize * offset;
+      piece.move(offsetX, offsetY);
     });
   }
 
   rotateWithOffset(offset) {
-    this.move(offset);
-    this.board.movingPiece.rotate();
-    if (this.board.isInvalid()) {
-      this.board.movingPiece.unrotate();
-      this.move(-offset);
-      return false;
-    } else {
-      return true;
+    this.move(offset, 0);
+    this.board.movingPiece.rotate(1);
+
+    const valid = this.board.isValid();
+
+    if (!valid) {
+      this.board.movingPiece.rotate(-1);
+      this.move(-offset, 0);
     }
+
+    return valid;
   }
 }

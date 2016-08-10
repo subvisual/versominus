@@ -145,27 +145,26 @@ export default class Board extends Phaser.Group {
     this.pieces.push(piece);
   }
 
-  isInvalid() {
-    let movingBlocks = this.movingBlocks();
+  isValid() {
+    const movingBlocks = this.movingBlocks();
 
-    let boundariesCheck = _.some(movingBlocks, block => (
+    const isOutOfBounds = _.some(movingBlocks, block => (
       block.x < 0 || block.x >= Width || block.y < 0 || block.y >= Height
     ));
 
-
-    if (boundariesCheck) {
-      return true;
+    if (isOutOfBounds) {
+      return false;
     }
 
-    let stoppedBlocks = this.stoppedBlocks();
+    const stoppedBlocks = this.stoppedBlocks();
 
-    let stoppedCheck = _.some(movingBlocks, movingBlock => (
+    const isOverlaping = _.some(movingBlocks, movingBlock => (
       _.some(stoppedBlocks, stoppedBlock => (
         movingBlock.x == stoppedBlock.x && movingBlock.y == stoppedBlock.y
       ))
     ));
 
-    return stoppedCheck;
+    return !isOverlaping;
   }
 
   allBlocks() {
@@ -225,6 +224,6 @@ export default class Board extends Phaser.Group {
   assignPoints(numberOfLines) {
     this.points += numberOfLines * 2;
 
-    this.wrapper.setScore(this.points);
+    this.setScore(this.points);
   }
 }
