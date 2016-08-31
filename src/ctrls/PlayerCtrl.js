@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
-export default class BoardCtrl {
-  constructor(board) {
-    this.board = board;
+export default class PlayerCtrl {
+  constructor(playerArea) {
+    this.playerArea = playerArea;
   }
 
   sendAction(data) {
@@ -31,25 +31,25 @@ export default class BoardCtrl {
   }
 
   canMove(offset) {
-    return _.every(this.board.movingBlocks(), (block) =>
-      this.board.isSideFree(block, offset)
+    return _.every(this.playerArea.movingBlocks(), (block) =>
+      this.playerArea.isSideFree(block, offset)
     );
   }
 
   move(offsetX, offsetY) {
-    this.board.movingPieces.forEach(piece => {
+    this.playerArea.movingPieces.forEach(piece => {
       piece.move(offsetX, offsetY);
     });
   }
 
   rotateWithOffset(offset) {
     this.move(offset, 0);
-    this.board.movingPiece.rotate(1);
+    this.playerArea.movingPiece.rotate(1);
 
-    const valid = this.board.isValid();
+    const valid = this.playerArea.isValid();
 
     if (!valid) {
-      this.board.movingPiece.rotate(-1);
+      this.playerArea.movingPiece.rotate(-1);
       this.move(-offset, 0);
     }
 

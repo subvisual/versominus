@@ -54,7 +54,7 @@ export default class KeyboardController {
   }
 
   sendMessage(to, data) {
-    console.log('Send message to', to, data);
+    console.debug('Send message to', to, data);
   }
 
   sendConnect(deviceId) {

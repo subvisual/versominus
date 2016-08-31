@@ -1,14 +1,16 @@
 import _ from 'lodash';
 
+import PlayerArea from '../objects/PlayerArea';
+import PlayerCtrl from '../ctrls/PlayerCtrl';
+
 const MAX_PLAYERS = 4;
 
 export default class Players {
-  constructor(controller) {
+  constructor(game, controller) {
+    this.game = game;
     this.players = {};
     this.connectedDevices = [];
     this.controller = controller;
-    this.messageListeners = [];
-    this.connectListeners = [];
 
     this.controller.onMessage(this.onMessage);
     this.controller.onConnect(this.onConnect);
@@ -20,15 +22,6 @@ export default class Players {
     this.setMasterPlayer();
     this.sendSelfState(deviceId);
     this.introducePlayers();
-    this.connectListeners.forEach(listener => listener(player));
-  }
-
-  sendSelfState(deviceId) {
-    const player = this.players[this.getPlayerNumber(deviceId)];
-    this.controller.sendMessage(deviceId, {
-      type: 'setPlayer',
-      player,
-    });
   }
 
   onMessage = (from, data) => {
@@ -39,7 +32,15 @@ export default class Players {
       return;
     }
 
-    this.messageListeners.forEach(listener => listener({ player, data }));
+    player.ctrl.sendAction(data);
+  }
+
+  sendSelfState(deviceId) {
+    const player = this.players[this.getPlayerNumber(deviceId)];
+    this.controller.sendMessage(deviceId, {
+      type: 'setPlayer',
+      player,
+    });
   }
 
   addPlayer(deviceId) {
@@ -50,10 +51,18 @@ export default class Players {
       return;
     }
 
-    const player = { deviceId, nickName, playerNumber };
+    const playerArea = new PlayerArea(this.game, playerNumber);
+    const ctrl = new PlayerCtrl(playerArea)
+    this.game.add.existing(playerArea);
+
+    const player = { deviceId, nickName, playerNumber, playerArea, ctrl };
 
     this.players[playerNumber] = player;
     return player;
+  }
+
+  getPlayer(playerNumber) {
+    return this.players[playerNumber];
   }
 
   getPlayerNumber(deviceId) {
@@ -91,13 +100,5 @@ export default class Players {
     }
 
     this.controller.setActivePlayers(length);
-  }
-
-  onPlayerAction(callback) {
-    return this.messageListeners.push(callback);
-  }
-
-  onPlayerConnect(callback) {
-    return this.connectListeners.push(callback);
   }
 }

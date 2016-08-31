@@ -1,25 +1,30 @@
 import _ from 'lodash';
 import Piece from './Piece';
 
-const Width = 300 * 4;
+const Width = 300;
 const Height = 600;
-const Columns = 10 * 4;
+const Columns = 10;
 
-export default class Board extends Phaser.Group {
-  constructor(game) {
-    super(game, null, 'Board');
+export default class PlayerArea extends Phaser.Group {
+  constructor(game, index) {
+    super(game, null, 'PlayerArea');
 
     this.game = game;
-    this.pieces = [];
-    this.x = 0;
+    this.index = index;
+    this.x = index * Width;
     this.y = 0;
+    this.points = 0;
+
+    this.setBackground();
+    this.setText();
+    this.addPiece();
   }
 
   update() {
-    // this.removeCompletedLines();
-    // this.instantiateNewPiece();
-    // this.updatePiecesState();
-    // super.update();
+    this.removeCompletedLines();
+    this.instantiateNewPiece();
+    this.updatePiecesState();
+    super.update();
   }
 
   instantiateNewPiece() {
@@ -128,6 +133,7 @@ export default class Board extends Phaser.Group {
     y = y || 0;
     const piece = Piece.createRandom(this.game, x, y);
 
+    this.pieces = this.pieces || [];
     this.add(piece);
     this.pieces.push(piece);
   }
