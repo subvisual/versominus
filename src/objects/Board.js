@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import Piece from './Piece';
-import BoardCtrl from '../ctrls/BoardCtrl';
 
 const Width = 300;
 const Height = 600;
@@ -16,8 +15,6 @@ export default class Board extends Phaser.Group {
     this.y = 0;
     this.points = 0;
     this.boards = boards;
-
-    this.ctrl = new BoardCtrl(this);
 
     this.setBackground();
     this.setText();
