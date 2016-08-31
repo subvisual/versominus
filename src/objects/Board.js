@@ -22,8 +22,9 @@ export default class Board extends Phaser.Group {
   }
 
   update() {
-    if (!this.game.isRunning)
+    if (!this.game.isRunning) {
       return;
+    }
 
     this.removeCompletedLines();
     this.instantiateNewPiece();
@@ -32,7 +33,7 @@ export default class Board extends Phaser.Group {
   }
 
   instantiateNewPiece() {
-    if (this.movingPieces.length == 0) {
+    if (this.movingPieces.length === 0) {
       this.addPiece();
     }
   }
@@ -48,7 +49,7 @@ export default class Board extends Phaser.Group {
   }
 
   setScore(score) {
-    this.scoreText.setText('Score: ' + score);
+    this.scoreText.setText(`Score: ${score}`);
   }
 
   updatePiecesState() {
@@ -62,16 +63,16 @@ export default class Board extends Phaser.Group {
 
   isPieceAtBottom() {
     return _.some(this.movingBlocks(), block => (
-      block.y + block.size == Height
+      block.y + block.size === Height
     ));
   }
 
   hasPieceBelow(piece) {
-    return _.some(this.stoppedPieces, (otherPiece => piece.x == otherPiece.x && piece.y + piece.blockSize == otherPiece.y));
+    return _.some(this.stoppedPieces, (otherPiece => piece.x === otherPiece.x && piece.y + piece.blockSize === otherPiece.y));
   }
 
   hasBlockBelow(block) {
-    return _.some(this.stoppedBlocks, (otherBlock => block.x == otherBlock.x && block.y + block.blockSize == otherBlock.y));
+    return _.some(this.stoppedBlocks, (otherBlock => block.x === otherBlock.x && block.y + block.blockSize === otherBlock.y));
   }
 
   isSideFree(block, direction) {
@@ -89,7 +90,7 @@ export default class Board extends Phaser.Group {
     }
 
     return _.every(stoppedBlocks, (stoppedBlock) =>
-      block.y != stoppedBlock.y || block.x + block.size * direction != stoppedBlock.x
+      block.y !== stoppedBlock.y || (block.x + (block.size * direction)) !== stoppedBlock.x
     );
   }
 
@@ -157,7 +158,7 @@ export default class Board extends Phaser.Group {
 
     const isOverlaping = _.some(movingBlocks, movingBlock => (
       _.some(stoppedBlocks, stoppedBlock => (
-        movingBlock.x == stoppedBlock.x && movingBlock.y == stoppedBlock.y
+        movingBlock.x === stoppedBlock.x && movingBlock.y === stoppedBlock.y
       ))
     ));
 
@@ -197,8 +198,9 @@ export default class Board extends Phaser.Group {
   }
 
   fuckEnemies(numberOfLines) {
-    if (!numberOfLines)
+    if (!numberOfLines) {
       return;
+    }
 
     const enemies = _.filter(this.boards, board => board.index !== this.index);
     enemies.forEach(enemy => enemy.board.fuckMe(numberOfLines));

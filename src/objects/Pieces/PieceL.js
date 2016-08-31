@@ -1,6 +1,6 @@
 import Base from './Base';
 
-export default class L extends Base {
+export default class PieceL extends Base {
   get color() {
     return 'red';
   }

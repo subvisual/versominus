@@ -1,12 +1,12 @@
 import AirConsole from '../vendor/Air_Console';
 import KeyboardController from './KeyboardController';
 
-export default function InputController(game) {
+export default function inputController(game) {
   const gameUrl = document.location.href;
 
   if (gameUrl.includes('airconsole')) {
     return new AirConsole({ synchronize_time: true });
-  } else {
-    return new KeyboardController(game);
   }
+
+  return new KeyboardController(game);
 }

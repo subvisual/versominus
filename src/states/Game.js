@@ -1,11 +1,11 @@
 import Players from './Players';
 import Board from '../objects/Board';
-import InputController from '../ctrls/InputCtrl';
+import inputController from '../ctrls/InputCtrl';
 import BoardCtrl from '../ctrls/BoardCtrl';
 
 export default class Game extends Phaser.State {
   create() {
-    this.inputCtrl = InputController(this.game);
+    this.inputCtrl = inputController(this.game);
     this.players = new Players(this.inputCtrl, this.startGame.bind(this));
 
     this.state = {};

@@ -4,12 +4,14 @@
     "modules": true
   },
   "globals": {
-    "Phaser": false
+    "Phaser": false,
+    "document": false
   },
   "rules": {
     "consistent-return": 0,
     "space-before-function-paren": [2, "never"],
-    "id-length": [2, {"exceptions": ["_"]}],
+    "id-length": [2, {"exceptions": ["_", "x", "y"]}],
+    "no-unused-vars": ["error", {"argsIgnorePattern": "^_"}],
     "new-cap": [2, {
     }],
     "max-len": 0

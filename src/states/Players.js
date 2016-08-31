@@ -35,8 +35,9 @@ export default class Players {
     const playerNumber = this.getPlayerNumber(from);
     const player = this.players[playerNumber];
 
-    if (!player)
+    if (!player) {
       return;
+    }
 
     this.messageListeners.forEach(listener => listener({ player, data }));
   }
@@ -45,8 +46,9 @@ export default class Players {
     const nickName = this.controller.getNickname(deviceId);
     const playerNumber = this.getPlayerNumber(deviceId);
 
-    if (this.players[playerNumber])
+    if (this.players[playerNumber]) {
       return;
+    }
 
     const player = { deviceId, nickName, playerNumber };
 
@@ -71,8 +73,9 @@ export default class Players {
     _.each(this.players, player => {
       const enemies = _.reject(this.players, enemy => enemy.playerNumber === player.playerNumber);
 
-      if (!Object.keys(enemies).length)
+      if (!Object.keys(enemies).length) {
         return;
+      }
 
       this.controller.sendMessage(player.deviceId, { type, enemies });
     });
@@ -83,8 +86,9 @@ export default class Players {
   }
 
   setActivePlayers(length) {
-    if (length > MAX_PLAYERS)
+    if (length > MAX_PLAYERS) {
       return;
+    }
 
     this.controller.setActivePlayers(length);
   }

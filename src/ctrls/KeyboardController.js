@@ -19,18 +19,30 @@ export default class KeyboardController {
   }
 
   onKeyDown(event) {
-    if (event.keyCode === Phaser.Keyboard.UP)
-      this.sendToScreen(0, 'ROTATE');
-    if (event.keyCode === Phaser.Keyboard.LEFT)
-      this.sendToScreen(0, 'LEFT');
-    if (event.keyCode === Phaser.Keyboard.RIGHT)
-      this.sendToScreen(0, 'RIGHT');
-    if (event.keyCode === Phaser.Keyboard.W)
-      this.sendToScreen(1, 'ROTATE');
-    if (event.keyCode === Phaser.Keyboard.A)
-      this.sendToScreen(1, 'LEFT');
-    if (event.keyCode === Phaser.Keyboard.D)
-      this.sendToScreen(1, 'RIGHT');
+    switch(event.keyCode) {
+      case Phaser.Keyboard.UP:
+        this.sendToScreen(0, 'ROTATE');
+        break;
+      case Phaser.Keyboard.LEFT:
+        this.sendToScreen(0, 'LEFT');
+        break;
+      case Phaser.Keyboard.RIGHT:
+        this.sendToScreen(0, 'RIGHT');
+        break;
+
+      case Phaser.Keyboard.W:
+        this.sendToScreen(1, 'ROTATE');
+        break;
+      case Phaser.Keyboard.A:
+        this.sendToScreen(1, 'LEFT');
+        break;
+      case Phaser.Keyboard.D:
+        this.sendToScreen(1, 'RIGHT');
+        break;
+
+      default:
+        break;
+    }
   }
 
   sendToScreen(from, data) {
@@ -54,12 +66,10 @@ export default class KeyboardController {
   }
 
   getMasterControllerDeviceId() {
-    if (this.players.length)
+    if (this.players.length) {
       return 0;
-
-    return null;
+    }
   }
-
 
   convertDeviceIdToPlayerNumber(deviceId) {
     return deviceId;

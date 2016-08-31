@@ -1,17 +1,17 @@
-import L from './L';
-import LReverse from './LReverse';
-import I from './I';
-import S from './S';
-import SReverse from './SReverse';
-import T from './T';
-import Square from './Square';
+import PieceL from './PieceL';
+import PieceLReverse from './PieceLReverse';
+import PieceI from './PieceI';
+import PieceS from './PieceS';
+import PieceSReverse from './PieceSReverse';
+import PieceT from './PieceT';
+import PieceSquare from './PieceSquare';
 
 export default {
-  L,
-  LReverse,
-  I,
-  S,
-  SReverse,
-  T,
-  Square,
+  PieceL,
+  PieceLReverse,
+  PieceI,
+  PieceS,
+  PieceSReverse,
+  PieceT,
+  PieceSquare,
 };

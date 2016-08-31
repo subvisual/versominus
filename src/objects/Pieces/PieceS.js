@@ -1,6 +1,6 @@
 import Base from './Base';
 
-export default class S extends Base {
+export default class PieceS extends Base {
   get color() {
     return 'cyan';
   }

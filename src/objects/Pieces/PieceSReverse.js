@@ -1,11 +1,11 @@
-import L from './L';
+import PieceS from './PieceS';
 
-export default class LReverse extends L {
+export default class PieceSReverse extends PieceS {
   get startPositions() {
     return [
       { x: -1, y: -1 },
       { x: -1, y: 0 },
-      { x: -1, y: 1 },
+      { x: 0, y: 0 },
       { x: 0, y: 1 },
     ];
   }

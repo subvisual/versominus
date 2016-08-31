@@ -14,12 +14,12 @@ export default class extends Phaser.Group {
   }
 
   get width() {
-    const max_x = _.reduce(this.blocks, (max, block) => Math.max(max, block.x), -1);
+    const maxX = _.reduce(this.blocks, (max, block) => Math.max(max, block.x), -1);
 
-    return max_x + 1;
+    return maxX + 1;
   }
 
-  rotate(direction = 1) {
+  rotate(_direction) {
     this.blocks.forEach(block => {
       const x = block.y;
       const y = -block.x;
@@ -65,14 +65,14 @@ export default class extends Phaser.Group {
     if (!this.lastTick) {
       this.lastTick = this.game.time.now;
       return true;
-    } else {
-      const currentTick = this.game.time.now;
-      const result = (currentTick - this.lastTick > TimeBetweenTicks);
-      if (result) {
-        this.lastTick = currentTick;
-      }
-      return result;
     }
+
+    const currentTick = this.game.time.now;
+    const result = (currentTick - this.lastTick > TimeBetweenTicks);
+    if (result) {
+      this.lastTick = currentTick;
+    }
+    return result;
   }
 
   stop() {
@@ -82,7 +82,7 @@ export default class extends Phaser.Group {
   checkCollisionBelow(stoppedBlocks) {
     return _.some(this.blocks, block => (
       _.some(stoppedBlocks, (stopped) => (
-        this.x + block.x == stopped.x && this.y + block.y + block.height == stopped.y
+        this.x + block.x === stopped.x && this.y + block.y + block.height === stopped.y
       ))
     ));
   }

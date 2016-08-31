@@ -76,23 +76,11 @@ function sendMessageToScreen(airConsole) {
 }
 
 function playersList(data) {
-  if (!Object.keys(data.enemies).length)
+  if (!Object.keys(data.enemies).length) {
     return;
+  }
 
   Object.keys(data.enemies).forEach(addEnemy(data.enemies));
-}
-
-function setPlayer(data) {
-  const color = PLAYER_COLORS[data.player.playerNumber];
-
-  if (!color)
-    return;
-
-  VERSOMINUS.playerContainer.className += color;
-
-  if (data.master) {
-    alert('Click rotate to start the game');
-  }
 }
 
 function addEnemy(enemies) {
@@ -100,23 +88,25 @@ function addEnemy(enemies) {
     const enemy = enemies[enemyKey];
     const color = PLAYER_COLORS[enemy.playerNumber];
 
-    if (!color)
+    if (!color) {
       return;
+    }
 
     const enemyElement = document.createElement('DIV');
-    enemyElement.className = 'Controller-button Controller-enemy' + color;
+    enemyElement.className = `Controller-button Controller-enemy${color}`;
     enemyElement.innerHTML = enemy.nickName;
-    enemyElement.id = 'js-Enemy-' + enemy.playerNumber;
+    enemyElement.id = `js-Enemy-${enemy.playerNumber}`;
 
-    if (playerExists(enemy.playerNumber))
+    if (playerExists(enemy.playerNumber)) {
       return;
+    }
 
     VERSOMINUS.enemiesContainer.appendChild(enemyElement);
   };
 }
 
 function playerExists(playerNumber) {
-  const id = 'js-Enemy-' + playerNumber;
+  const id = `js-Enemy-${playerNumber}`;
 
   return document.getElementById(id);
 }

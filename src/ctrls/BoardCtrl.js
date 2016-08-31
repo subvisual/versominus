@@ -10,6 +10,7 @@ export default class BoardCtrl {
       case 'LEFT': this.moveLeft(); break;
       case 'RIGHT': this.moveRight(); break;
       case 'ROTATE': this.tryToRotate(); break;
+      default: console.debug(`Unknown action: ${data}`); break;
     }
   }
 
