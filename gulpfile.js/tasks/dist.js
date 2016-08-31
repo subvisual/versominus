@@ -6,24 +6,23 @@
 'use strict';
 
 
-module.exports = function (gulp, $, config) {
+module.exports = function(gulp, $, config) {
+  const del = require('del');
+  const buffer = require('vinyl-buffer');
+  const source = require('vinyl-source-stream');
+  const bundler = require('./helpers/bundler');
 
-  var del     = require('del');
-  var buffer  = require('vinyl-buffer');
-  var source  = require('vinyl-source-stream');
-  var bundler = require('./helpers/bundler');
-
-  var dirs  = config.dirs;
-  var files = config.files;
+  const dirs = config.dirs;
+  const files = config.files;
 
   // Wipes `build` and `dist` directories before any task.
-  gulp.task('dist:clean', function () {
-    return del([ dirs.build, dirs.dist ]);
+  gulp.task('dist:clean', function() {
+    return del([dirs.build, dirs.dist]);
   });
 
   // Copies and minifies the Phaser build for distribution.
-  gulp.task('dist:phaser', function () {
-    return gulp.src([ files.phaser ])
+  gulp.task('dist:phaser', function() {
+    return gulp.src([files.phaser])
       .pipe($.rename('phaser.min.js'))
       .pipe($.uglify())
       .pipe($.sourcemaps.init())
@@ -32,7 +31,7 @@ module.exports = function (gulp, $, config) {
   });
 
   // Bundle all scripts together for distribution.
-  gulp.task('dist:scripts', [ 'dev:lint' ], function () {
+  gulp.task('dist:scripts', ['dev:lint'], function() {
     return bundler(config.bundle)
       .bundle()
       .pipe(source('game.min.js'))
@@ -44,8 +43,8 @@ module.exports = function (gulp, $, config) {
   });
 
   // Copy all required application assets into the final build directory.
-  gulp.task('dist:assets', function () {
-    var filterHTML = $.filter('*.html', { restore: true });
+  gulp.task('dist:assets', function() {
+    const filterHTML = $.filter('*.html', { restore: true });
     return gulp.src(files.assets)
       .pipe(filterHTML)
       .pipe($.processhtml())
@@ -54,12 +53,11 @@ module.exports = function (gulp, $, config) {
   });
 
   // The main distribution task.
-  gulp.task('dist', [ 'dist:clean' ], function (done) {
+  gulp.task('dist', ['dist:clean'], function(done) {
     gulp.start([
       'dist:assets',
       'dist:phaser',
-      'dist:scripts'
+      'dist:scripts',
     ], done);
   });
-
 };

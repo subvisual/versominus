@@ -7,19 +7,19 @@
 
 
 // Where this project source code lives.
-var SRC = 'src';
+const SRC = 'src';
 
 // Where final distribution files will be copied.
-var DIST = 'dist';
+const DIST = 'dist';
 
 // Where compiled scripts will be placed.
-var BUILD = 'build';
+const BUILD = 'build';
 
 // Where static assets (textures, fonts, sprites, sounds etc.) live.
-var STATIC = 'static';
+const STATIC = 'static';
 
 // Which Phaser build was selected to develop the game.
-var PHASER = 'node_modules/phaser/build/custom/phaser-no-physics.js';
+const PHASER = 'node_modules/phaser/build/custom/phaser-no-physics.js';
 
 
 module.exports = {
@@ -27,7 +27,7 @@ module.exports = {
   // Build output directories.
   dirs: {
     build: BUILD,
-    dist: DIST
+    dist: DIST,
   },
 
   // File paths and glob patterns.
@@ -39,7 +39,7 @@ module.exports = {
     scripts: SRC + '/**/*.js',
 
     // The selected Phaser script.
-    phaser: PHASER
+    phaser: PHASER,
   },
 
   // The Browserify settings.
@@ -47,11 +47,11 @@ module.exports = {
     debug: true,
     standalone: 'app',
     entries: [
-      'src/app.js'
+      'src/app.js',
     ],
     transform: [
-      'babelify'
-    ]
+      'babelify',
+    ],
   },
 
   // The BrowserSync settings.
@@ -59,14 +59,14 @@ module.exports = {
     server: {
       baseDir: [
         STATIC,
-        BUILD
+        BUILD,
       ],
       routes: {
-        '/phaser.js': PHASER
-      }
+        '/phaser.js': PHASER,
+      },
     },
     ghostMode: false,
-    notify: false
-  }
+    notify: false,
+  },
 
 };

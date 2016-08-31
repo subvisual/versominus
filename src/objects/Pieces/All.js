@@ -13,5 +13,5 @@ export default {
   S,
   SReverse,
   T,
-  Square
+  Square,
 };

@@ -4,6 +4,7 @@
     "modules": true
   },
   "globals": {
+    "Phaser": false
   },
   "rules": {
     "consistent-return": 0,

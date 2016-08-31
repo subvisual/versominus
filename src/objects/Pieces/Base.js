@@ -21,8 +21,8 @@ export default class extends Phaser.Group {
 
   rotate(direction = 1) {
     this.blocks.forEach(block => {
-      let x = block.y;
-      let y = - block.x;
+      const x = block.y;
+      const y = -block.x;
 
       block.x = x;
       block.y = y;
@@ -66,8 +66,8 @@ export default class extends Phaser.Group {
       this.lastTick = this.game.time.now;
       return true;
     } else {
-      let currentTick = this.game.time.now;
-      let result = (currentTick - this.lastTick > TimeBetweenTicks);
+      const currentTick = this.game.time.now;
+      const result = (currentTick - this.lastTick > TimeBetweenTicks);
       if (result) {
         this.lastTick = currentTick;
       }

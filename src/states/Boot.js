@@ -12,13 +12,13 @@ export default class Boot extends Phaser.State {
 
   // Use this method to adjust the game appearance, number of input pointers,
   // screen orientation handling etc.
-  init () {
+  init() {
     // Point the Phaser Asset Loader to where all your assets live.
     this.load.path = 'assets/';
 
     // Initialize physics engines here. Phaser builds including Arcade Physics
     // enable it by default.
-    //this.physics.startSystem(Phaser.Physics.P2);
+    // this.physics.startSystem(Phaser.Physics.P2);
 
     // Adjust how many pointers Phaser will check for input events.
     this.input.maxPointers = 2;
@@ -35,12 +35,12 @@ export default class Boot extends Phaser.State {
     this.stage.smoothed = true;
   }
 
-  preload () {
+  preload() {
     // Load the graphical assets required to show the splash screen later.
     this.load.pack('boot', null, assets);
   }
 
-  create () {
+  create() {
     // After loading the splash screen assets, move to the next game state.
     this.state.start('Preload');
   }

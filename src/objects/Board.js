@@ -6,7 +6,7 @@ const Height = 600;
 const Columns = 10;
 
 export default class Board extends Phaser.Group {
-  constructor (game, index, boards) {
+  constructor(game, index, boards) {
     super(game, null, 'Board');
 
     this.game = game;
@@ -41,7 +41,7 @@ export default class Board extends Phaser.Group {
     this.scoreText = new Phaser.Text(this.game, 50, 10, 'Score: 0', {
       font: '20px Arial',
       fill: '#fff',
-      align: 'left'
+      align: 'left',
     });
 
     this.add(this.scoreText);
@@ -52,7 +52,7 @@ export default class Board extends Phaser.Group {
   }
 
   updatePiecesState() {
-    let stopped = this.stoppedBlocks();
+    const stopped = this.stoppedBlocks();
     this.movingPieces.forEach(piece => {
       if (this.isPieceAtBottom(piece) || piece.checkCollisionBelow(stopped)) {
         piece.stop();
@@ -83,7 +83,7 @@ export default class Board extends Phaser.Group {
       return false;
     }
 
-    let stoppedBlocks = this.stoppedBlocks();
+    const stoppedBlocks = this.stoppedBlocks();
     if (stoppedBlocks.length === 0) {
       return true;
     }
@@ -96,7 +96,7 @@ export default class Board extends Phaser.Group {
   stoppedBlocks() {
     return _.flatten(this.stoppedPieces.map((piece) =>
       piece.blocks.map(block =>
-        ({ x: block.x + piece.x, y: block.y + piece.y, size: piece.blockSize, piece, block})
+        ({ x: block.x + piece.x, y: block.y + piece.y, size: piece.blockSize, piece, block })
       )
     ));
   }
@@ -122,7 +122,7 @@ export default class Board extends Phaser.Group {
   }
 
   setBackground() {
-    var bg = new Phaser.TileSprite(
+    const bg = new Phaser.TileSprite(
       this.game,
       0, 0,
       Width, Height,
@@ -205,12 +205,12 @@ export default class Board extends Phaser.Group {
   }
 
   fuckMe() {
-    let piece = this.movingPiece;
+    const piece = this.movingPiece;
     if (!piece) {
       return;
     }
-    let x = piece.x;
-    let y = piece.y;
+    const x = piece.x;
+    const y = piece.y;
 
     piece.destroy();
     this.remove(piece);

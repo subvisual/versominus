@@ -4,7 +4,7 @@ import InputController from '../ctrls/InputCtrl';
 import BoardCtrl from '../ctrls/BoardCtrl';
 
 export default class Game extends Phaser.State {
-  create () {
+  create() {
     this.inputCtrl = InputController(this.game);
     this.players = new Players(this.inputCtrl, this.startGame.bind(this));
 
@@ -15,7 +15,7 @@ export default class Game extends Phaser.State {
     this.game.isRunning = false;
   }
 
-  update () {
+  update() {
     super.update();
   }
 

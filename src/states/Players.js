@@ -3,7 +3,7 @@ import _ from 'lodash';
 const MAX_PLAYERS = 4;
 
 export default class Players {
-  constructor (controller) {
+  constructor(controller) {
     this.players = {};
     this.connectedDevices = [];
     this.controller = controller;
@@ -27,7 +27,7 @@ export default class Players {
     const player = this.players[this.getPlayerNumber(deviceId)];
     this.controller.sendMessage(deviceId, {
       type: 'setPlayer',
-      player: player
+      player,
     });
   }
 
@@ -38,7 +38,7 @@ export default class Players {
     if (!player)
       return;
 
-    this.messageListeners.forEach(listener => listener({player, data}));
+    this.messageListeners.forEach(listener => listener({ player, data }));
   }
 
   addPlayer(deviceId) {

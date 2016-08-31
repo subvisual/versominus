@@ -15,61 +15,61 @@ export default {
   // -- The splash screen assets, displayed during the 'Preload' state.
   boot: [{
     key: 'splash-screen',
-    type: 'image'
+    type: 'image',
   }, {
     key: 'progress-bar',
-    type: 'image'
+    type: 'image',
   }],
 
   // -- General game assets
   game: [{
     key: 'phaser',
-    type: 'image'
+    type: 'image',
   },
   {
     key: 'blocks/zamith',
-    type: 'image'
+    type: 'image',
   },
   {
     key: 'blocks/blue',
-    type: 'image'
+    type: 'image',
   },
   {
     key: 'blocks/cyan',
-    type: 'image'
+    type: 'image',
   },
   {
     key: 'blocks/purple',
-    type: 'image'
+    type: 'image',
   },
   {
     key: 'blocks/red',
-    type: 'image'
+    type: 'image',
   },
   {
     key: 'blocks/white',
-    type: 'image'
+    type: 'image',
   },
   {
     key: 'blocks/yellow',
-    type: 'image'
+    type: 'image',
   },
   {
     key: 'boards/0',
-    type: 'image'
+    type: 'image',
   },
   {
     key: 'boards/1',
-    type: 'image'
+    type: 'image',
   },
   {
     key: 'boards/2',
-    type: 'image'
+    type: 'image',
   },
   {
     key: 'boards/3',
-    type: 'image'
-  }
+    type: 'image',
+  },
   // }, {
   //   // Example: Add background music.
   //   key: 'tune',
@@ -81,4 +81,4 @@ export default {
   //   type: 'audiosprite',
   //   urls: [ 'sfx.m4a' ],
   //   jsonURL: 'sfx.json'
-  ]};
+  ] };

@@ -1,24 +1,24 @@
-/*global AirConsole VERSOMINUS*/
+/* global AirConsole VERSOMINUS*/
 
 VERSOMINUS = {};
 
-var PLAYER_COLORS = {
+const PLAYER_COLORS = {
   0: ' Background--blue',
   1: ' Background--green',
   2: ' Background--yellow',
-  3: ' Background--red'
+  3: ' Background--red',
 };
 
-var context = this;
-var playerNameSelector = 'js-PlayerName';
-var playerContainerSelector = 'js-Player';
-var enemiesContaienrSelector = 'js-Enemies';
+const context = this;
+const playerNameSelector = 'js-PlayerName';
+const playerContainerSelector = 'js-Player';
+const enemiesContaienrSelector = 'js-Enemies';
 
 
 init();
 
 function init() {
-  var airConsole = new AirConsole();
+  const airConsole = new AirConsole();
 
   airConsole.onReady = ready(airConsole);
   airConsole.onMessage = onMessage;
@@ -33,7 +33,7 @@ function init() {
   VERSOMINUS.actions = {
     left: 'LEFT',
     right: 'RIGHT',
-    rotate: 'ROTATE'
+    rotate: 'ROTATE',
   };
 }
 
@@ -49,7 +49,7 @@ function ready(airConsole) {
 function handshake(airConsole) {
   return function() {
     airConsole.message(AirConsole.SCREEN, {
-      handshake: true
+      handshake: true,
     });
   };
 }
@@ -69,7 +69,7 @@ function sendMessage(airConsole) {
 }
 
 function sendMessageToScreen(airConsole) {
-  var to = AirConsole.SCREEN;
+  const to = AirConsole.SCREEN;
   return function(message) {
     return airConsole.message(to, message);
   };
@@ -83,7 +83,7 @@ function playersList(data) {
 }
 
 function setPlayer(data) {
-  var color = PLAYER_COLORS[data.player.playerNumber];
+  const color = PLAYER_COLORS[data.player.playerNumber];
 
   if (!color)
     return;
@@ -97,13 +97,13 @@ function setPlayer(data) {
 
 function addEnemy(enemies) {
   return function(enemyKey) {
-    var enemy = enemies[enemyKey];
-    var color = PLAYER_COLORS[enemy.playerNumber];
+    const enemy = enemies[enemyKey];
+    const color = PLAYER_COLORS[enemy.playerNumber];
 
     if (!color)
       return;
 
-    var enemyElement = document.createElement('DIV');
+    const enemyElement = document.createElement('DIV');
     enemyElement.className = 'Controller-button Controller-enemy' + color;
     enemyElement.innerHTML = enemy.nickName;
     enemyElement.id = 'js-Enemy-' + enemy.playerNumber;
@@ -116,7 +116,7 @@ function addEnemy(enemies) {
 }
 
 function playerExists(playerNumber) {
-  var id = 'js-Enemy-' + playerNumber;
+  const id = 'js-Enemy-' + playerNumber;
 
   return document.getElementById(id);
 }
