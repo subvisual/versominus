@@ -10,11 +10,11 @@ export default class Players {
     this.messageListeners = [];
     this.connectListeners = [];
 
-    this.controller.onMessage(this.onMessage.bind(this));
-    this.controller.onConnect(this.onConnect.bind(this));
+    this.controller.onMessage(this.onMessage);
+    this.controller.onConnect(this.onConnect);
   }
 
-  onConnect(deviceId) {
+  onConnect = (deviceId) => {
     this.setActivePlayers(Object.keys(this.players).length + 1);
     const player = this.addPlayer(deviceId);
     this.setMasterPlayer();
@@ -31,7 +31,7 @@ export default class Players {
     });
   }
 
-  onMessage(from, data) {
+  onMessage = (from, data) => {
     const playerNumber = this.getPlayerNumber(from);
     const player = this.players[playerNumber];
 

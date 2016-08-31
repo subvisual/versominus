@@ -175,13 +175,13 @@ export default class Board extends Phaser.Group {
     let lines = _.groupBy(this.stoppedBlocks(), block => (block.y));
     lines = _.filter(lines, line => line.length === Columns);
 
-    _.each(lines, this.removeLine.bind(this), this);
+    _.each(lines, this.removeLine, this);
     this.removeEmptyPieces();
     this.assignPoints(lines.length);
     this.fuckEnemies(lines.length);
   }
 
-  removeLine(line) {
+  removeLine = (line) => {
     line.forEach(block => {
       block.piece.removeBlocks(block.block);
     });

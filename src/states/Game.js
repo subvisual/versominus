@@ -5,12 +5,12 @@ import BoardCtrl from '../ctrls/BoardCtrl';
 
 export default class Game extends Phaser.State {
   create() {
-    this.inputCtrl = inputController(this.game);
-    this.players = new Players(this.inputCtrl, this.startGame.bind(this));
+    this.inputCtrl = inputController(this.input);
+    this.players = new Players(this.inputCtrl, this.startGame);
 
     this.state = {};
-    this.players.onPlayerConnect(this.addBoardForPlayer.bind(this));
-    this.players.onPlayerAction(this.routeActionForBoard.bind(this));
+    this.players.onPlayerConnect(this.addBoardForPlayer);
+    this.players.onPlayerAction(this.routeActionForBoard);
 
     this.game.isRunning = false;
   }
@@ -19,11 +19,11 @@ export default class Game extends Phaser.State {
     super.update();
   }
 
-  startGame() {
+  startGame = () => {
     this.game.isRunning = true;
   }
 
-  addBoardForPlayer(player) {
+  addBoardForPlayer = (player) => {
     const board = new Board(this.game, player.playerNumber, this.boards);
     const ctrl = new BoardCtrl(board);
 
@@ -32,7 +32,7 @@ export default class Game extends Phaser.State {
     this.game.add.existing(board);
   }
 
-  routeActionForBoard(action) {
+  routeActionForBoard = (action) => {
     // Temporary logic to start the game on the first ROTATE action
     if (action.player.master && action.data === 'ROTATE' && !this.game.isRunning) {
       return this.startGame();

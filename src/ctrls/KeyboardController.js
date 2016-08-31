@@ -1,25 +1,25 @@
 export default class KeyboardController {
-  constructor(game) {
-    this.game = game;
+  constructor(input) {
+    this.input = input;
     this.players = [];
     this.messageListeners = [];
     this.connectListeners = [];
 
-    setTimeout(this.init.bind(this), 0);
+    setTimeout(this.init, 0);
   }
 
-  init() {
+  init = () => {
     this.players.push('Debug 1');
     this.sendConnect(0);
     this.players.push('Debug 2');
     this.sendConnect(1);
     this.sendConnect(2);
     this.sendConnect(3);
-    this.game.input.keyboard.onDownCallback = this.onKeyDown.bind(this);
+    this.input.keyboard.onDownCallback = this.onKeyDown;
   }
 
-  onKeyDown(event) {
-    switch(event.keyCode) {
+  onKeyDown = (event) => {
+    switch (event.keyCode) {
       case Phaser.Keyboard.UP:
         this.sendToScreen(0, 'ROTATE');
         break;
